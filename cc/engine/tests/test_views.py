@@ -408,14 +408,14 @@ def test_license_caching():
     no_cache_urls = [
         '/licenses/by/3.0/', 
         '/licenses/by/3.0/deed.es',
-        '/licenses/by/3.0/fi/',
+        '/licenses/by/3.0/de/',
         '/licenses/by/3.0/es/deed.es']
 
     for url in no_cache_urls:
         response = TESTAPP.get(url)
-        assert not res.headers.getall('Cache-Control')
+        assert not response.headers.getall('Cache-Control')
 
     # make sure that jurisdiction 'es' on its own (which has multiple
     # languages) *does* set the cache_control.
     response = TESTAPP.get('/licenses/by/3.0/es/')
-    assert 'no-cache' in res.headers.getall('Cache-Control')
+    assert 'no-cache' in response.headers.getall('Cache-Control')
