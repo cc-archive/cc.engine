@@ -38,6 +38,10 @@ def license_deed_view(request, license):
     """
     The main and major deed generating view.
     """
+    # If we decide we want to skip caching for this deed, we'll mark this
+    # Appropriate header set at end of this function.
+    no_cache = False
+
     # True if the legalcode for this license is available in
     # multiple languages (or a single language with a language code different
     # than that of the jurisdiction.
@@ -66,6 +70,11 @@ def license_deed_view(request, license):
     if request.matchdict.has_key('target_lang'):
         target_lang = request.matchdict.get('target_lang')
     elif license.jurisdiction.default_language:
+        # If the jurisdiction has more than one language, we might
+        # negotiate for it, so no caching.
+        if len(license.jurisdiction.languages) > 1:
+            no_cache = True
+
         target_lang = util.locale_to_cclicense_style(
             license.jurisdiction.default_language)
     else:
@@ -132,7 +141,11 @@ def license_deed_view(request, license):
         'target_lang': target_lang}
     context.update(util.rtl_context_stuff(target_lang))
 
-    return Response(main_template.pt_render(context))
+    response = Response(main_template.pt_render(context))
+    if no_cache:
+        response.headers.add('Cache-Control', 'no-cache')
+
+    return response
 
 
 @get_license

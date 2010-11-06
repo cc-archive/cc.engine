@@ -396,3 +396,26 @@ def test_publicdomain_partners_exiturls():
         'http://nethack.org/return_from_cc?'
         'license_url=http%3A//creativecommons.org/publicdomain/zero/1.0/&'
         'license_name=CC0%201.0%20Universal')
+
+
+def test_license_caching():
+    """
+    Certain license deeds shouldn't cache.  Namely, the ones that have
+    jurisdictions with multiple languages, since we do language
+    negotiation on those.
+    """
+    # make sure certain URLS *don't* set the cache-control.
+    no_cache_urls = [
+        '/licenses/by/3.0/', 
+        '/licenses/by/3.0/deed.es',
+        '/licenses/by/3.0/fi/',
+        '/licenses/by/3.0/es/deed.es']
+
+    for url in no_cache_urls:
+        response = TESTAPP.get(url)
+        assert not res.headers.getall('Cache-Control')
+
+    # make sure that jurisdiction 'es' on its own (which has multiple
+    # languages) *does* set the cache_control.
+    response = TESTAPP.get('/licenses/by/3.0/es/')
+    assert 'no-cache' in res.headers.getall('Cache-Control')
