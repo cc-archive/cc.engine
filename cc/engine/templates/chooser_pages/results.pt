@@ -72,9 +72,83 @@
            tal:content="structure license_html">
       </div>
       
-      <div style="margin-top:20px;margin-bottom:30px;">
-        <h4 i18n:translate="license.have_your_own_website">Have your own website?</h4>
+      <style>
+         .ui-tabs { padding:0; margin:0; }
+         .ui-tabs-nav {
+          padding:0 !important;
+          margin:0;
+          width:120px;
+          float:left;
+         }
+         li.ui-state-default { 
+          margin:0 10px 5px 0;
+          padding:0px;
+          list-style:none;
+          border-radius:5px;
+          border:1px #444 solid;
+          background:#555;
+          border-right:none;
+         }
+         li.ui-state-default:last-child { 
+          margin-bottom:0px;
+         }
+         li.ui-state-default a {
+          padding:10px; 
+          display:block;
+          text-shadow:0px -1px 0px #222;
+          color:#fff;
+          font-weight:bold;
+         }
+         li.ui-tabs-selected, 
+         li.ui-state-active, 
+         .ui-tabs-nav li:hover {  
+          margin-right:0px;
+          border-top-right-radius:0px;
+          border-bottom-right-radius:0px;
+          border:1px #ddd solid;
+          border-right:none;
+          background:#fff;
+         }
+         li.ui-tabs-selected a, 
+         li.ui-state-active a, 
+         .ui-tabs-nav li:hover a {       
+          color:#1C438B;
+          text-shadow:0px -1px 1px #fff;
+         }
+         div.ui-tabs-panel { 
+          border:1px #ddd solid;
+          margin:20px 0 30px 119px; 
+          padding:10px 10px 10px 10px;
+         }
+         div.ui-tabs-panel h3 { margin:0 0 5px 0; }
+         .ui-tabs .ui-tabs-hide {
+           display: none;
+         }
+         .clearfix { height:1px;clear:both; }
+      </style>
+      
+      <div id="next-steps">
 
+      <ul>
+        <li>
+          <a href="#html-step" i18n:translate="license.have_your_own_website">Have your own website?</a>
+        </li>
+        <li>
+          <a href="#offline-step">Offline Work</a>
+        </li>
+        <li>
+          <a href="#xmp-step">XMP Metadata</a>
+        </li>
+        <li>
+          <a href="#graphics-step">License graphics</a>
+        </li>
+      </ul>
+        
+
+      <div id="html-step">
+        
+        <h3>Have Your Own Website?</h3>
+        
         <p i18n:translate="license.copy_text">
           Copy the text below to your Web site to let your visitors
           know what license applies to your works.
@@ -83,11 +157,10 @@
         <form action="">
           <div>
             <textarea id="codetocopy" name="html" onclick="this.select()" readonly="true" 
-                      style="width:99%;height:150px;resize:vertical" rows="8" cols="20"
+                      style="width:99%;height:200px;resize:vertical" rows="8" cols="20"
                       tal:content="structure license_html"/>
           </div>
         </form>
-
         <p i18n:translate="license.select_text">
           <span tal:content="request/query_string"
                 tal:omit-tag=""
@@ -97,6 +170,99 @@
                onclick="window.open('http://creativecommons.org/choose/work-html-popup?lang=en&amp;license_code=by-nc-nd&amp;title=efwefewf', 'html_help', 'width=400,height=350,scrollbars=yes,resizable=yes,toolbar=no,directories=no,location=yes,menubar=no,status=yes');return false;">emailed to yourself.</a>
           </span>
         </p>
+      </div>
+
+      <div id="offline-step">
+        
+        <h3>Offline Work</h3>
+
+        <p i18n:translate="license.mark_nonweb">
+          <%=[ccommons::istr $lang license.mark_nonweb]%>
+          <span tal:omit-tag="" i18n:name="url_vars"
+                tal:content="request/query_string" />
+        </p>
+        <form action="">
+        <textarea onclick="this.select()" readonly="true" 
+                      style="width:99%;height:200px;resize:vertical" rows="8" cols="20" 
+                  name="html">
+<span tal:omit-tag="" 
+      tal:condition="request/publicdomain|request/pd|nothing"
+      i18n:translate="license.non_web_pd">
+This work is in the Public Domain. To view a copy of the public domain certification, visit http://creativecommons.org/licenses/publicdomain/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+</span><span tal:omit-tag="" 
+      tal:condition="not:request/publicdomain|request/pd|nothing"
+      i18n:translate="license.non_web_statement">
+This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name="license_name" tal:content="license/title" /> License.  To view a copy of this license, visit <span tal:omit-tag="" i18n:name="license_url"  tal:content="license/uri" /> or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+</span>
+</textarea>
+       
+      </form>
+
+      </div>
+      <div id="xmp-step">
+        
+        <h3>XMP Metadata</h3>
+
+         <p i18n:translate="license.xmp_text">
+          Copy the text below to include XMP metadata in your work.
+        </p>
+
+        <form action="">
+          <div>
+            <textarea id="codetocopy" name="html" onclick="this.select()" readonly="true" 
+                      style="width:99%;height:200px;resize:vertical" rows="8" cols="20"
+                      tal:content="structure license_xmp"/>
+          </div>
+        </form>
+      </div>
+      <div id="graphics-step">
+        <h3>License Buttons</h3>
+        <p>For higher resolution license buttons, click on the desired file type below the image.</p>
+        <ul class="presskit" style="margin:10px 0;padding:0;clear:none;">
+          <li>
+            <img alt="Creative Commons License"
+                 tal:attributes="src license/logo"
+                 src="" style="margin-right:10px;margin-bottom:4px; border: 0;" />
+            <br />
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/%s.svg'%license.license_code ">svg</a> &nbsp; 
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/88x31/eps/%s.eps'%license.license_code ">eps</a> &nbsp; 
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/%s.png'%license.license_code ">png</a> &nbsp; 
+              
+          </li>
+          <li>
+            <img alt="Creative Commons License"
+                 tal:attributes="src license_slim_logo"
+                 src="" style="margin-right:10px;margin-bottom:4px; border: 0;" />
+            <br />
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/svg/%s.svg'%license.license_code ">svg</a> &nbsp; 
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/eps/%s.eps'%license.license_code ">eps</a> &nbsp; 
+            <a tal:attributes="href python: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/png/%s.png'%license.license_code ">png</a> &nbsp; 
+            
+          </li>
+        </ul>    
+        <h3>Icons</h3> 
+        <ul class="presskit" style="margin:10px 0;padding:0;clear:none;"> 
+          <li><img src="http://mirrors.creativecommons.org/presskit/icons/cc.png" alt="cc" /><br /> 
+            <strong>CC</strong><br /> 
+            <br /><a href="http://mirrors.creativecommons.org/presskit/icons/cc.svg">svg</a> <a href="http://mirrors.creativecommons.org/presskit/icons/cc.eps">eps</a> <a href="http://mirrors.creativecommons.org/presskit/icons/cc.large.png">png</a> </li> 
+          
+          <li tal:repeat="code python:license.license_code.split('-')">
+            <img tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.png' % code; alt code" /><br /> 
+            <strong tal:content="python:code.upper()"></strong><br /> 
+            <br /><a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.svg' % code">svg</a> <a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.eps' % code">eps</a> <a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.large.png' % code">png</a></li> 
+           
+        </ul>
+      </div>
+      </div>
+      <div class="clearfix">&nbsp;</div>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script> 
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+      <script>
+	    $(function() {
+		 $("#next-steps").tabs();
+	    });
+      </script>
 
         <div id="chooserDonate">
           <div>
@@ -114,7 +280,6 @@
             <a href="http://wiki.creativecommons.org/Website/Publish">Read our tutorial</a>.
           </strong>
         </p>
-      </div>
       <!-- <div metal:use-macro="here/license_macros/macros/languages">
            language box
            </div>

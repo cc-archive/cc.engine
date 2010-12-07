@@ -346,13 +346,16 @@ def choose_results_view(request):
 
     license_html = HTML_FORMATTER.format(
         license, work_dict, target_lang)
-
+    license_xmp = license_xmp_template(
+        request_form, license, target_lang)
+    
     context.update(
         {'engine_template': engine_template,
          'license': license,
          'license_slim_logo': license_slim_logo,
          'license_title': license.title(target_lang),
-         'license_html': license_html})
+         'license_html': license_html,
+         'license_xmp': license_xmp})
 
     if request.GET.get('partner'):
         context.update(
@@ -374,12 +377,7 @@ def choose_xmp_view(request):
     xmp_data = license_xmp_template(
         request_form, license, target_lang)
 
-    return Response(
-        xmp_data,
-        content_type='application/xmp; charset=UTF-8',
-        charset='UTF-8',
-        content_disposition='attachment; filename="CC_%s.xmp' % (
-            license.title().strip().replace(' ', '_')))
+    return Response(xmp_data)
 
 
 def get_html(request):
