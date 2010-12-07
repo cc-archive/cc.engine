@@ -22,9 +22,8 @@
 </head>
 
 <body>
-  <metal:title metal:fill-slot="page-header-title"
-               i18n:translate="license.License_Your_Work">
-    License Your Work
+  <metal:title metal:fill-slot="page-header-title">
+    <h2 tal:attributes="dir get_ltr_rtl|nothing; style is_rtl_align|nothing;" i18n:translate="license.License_Your_Work">Choose a License</h2>
   </metal:title>
     
   <div metal:fill-slot="body">
