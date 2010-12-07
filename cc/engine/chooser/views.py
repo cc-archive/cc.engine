@@ -329,7 +329,7 @@ def choose_results_view(request):
             'chooser_pages/results.pt', target_lang)
 
     engine_template = util.get_zpt_template(
-        'macros_templates/engine.pt', target_lang)
+        'macros_templates/engine_2cols.pt', target_lang)
 
     context = _base_context(request, target_lang)
     request_form = request.GET or request.POST

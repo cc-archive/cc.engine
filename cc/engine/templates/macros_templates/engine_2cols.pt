@@ -70,11 +70,10 @@
 	    <div id="mainContent" class="box">
 	      <div id="contentPrimary" tal:attributes="dir get_ltr_rtl|nothing; style is_rtl_align|nothing;">
           <div class="block" id="title">
-        	<h2 tal:attributes="dir get_ltr_rtl|nothing; style
-    				            is_rtl_align|nothing;">
+        	
         	  <metal:page_title define-slot="page-header-title">
         	  </metal:page_title>
-    		</h2>
+    		
     	  </div>
     	  <div id="blocks" class="2cols" style="width:680px;">
 			<div class="block page">

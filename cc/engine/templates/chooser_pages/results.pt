@@ -21,20 +21,110 @@
   </head>
 
   <body>
-    <metal:title metal:fill-slot="page-header-title"
-                 i18n:translate="license.here_chosen">
-      Here is the license you&rsquo;ve chosen
+    <metal:title metal:fill-slot="page-header-title">
+<!--                 i18n:translate="license.here_chosen">-->
+      <h2 tal:attributes="dir get_ltr_rtl|nothing; style is_rtl_align|nothing;">You&rsquo;ve Chosen</h2>
+      <h3 tal:attributes="dir get_ltr_rtl|nothing; style is_rtl_align|nothing;">Creative Commons <span tal:omit-tag="" tal:content="license/title" /></h3>
     </metal:title>
-
-    <div metal:fill-slot="body"
-         tal:define="target_lang string:en;">
+    
+    <div metal:fill-slot="body">
+          
+      <style>
+         .no-margin { margin:0 !important; }
+         .ui-tabs { padding:0; margin:0; }
+         .ui-tabs-nav {
+          padding:0 !important;
+          margin:0;
+          width:110px;
+          float:left;
+         }
+         li.ui-state-default { 
+          margin:0 0 5px 0;
+          padding:0px;
+          list-style:none;
+          border-top-left-radius:5px;
+          border-bottom-left-radius:5px;
+          -moz-border-radius-topleft:5px;
+          -moz-border-radius-bottomleft:5px;
+          border:1px #444 solid;
+          background:#555;
+          border-right:none;
+         }
+         li.ui-state-default:last-child { 
+          margin-bottom:0px;
+         }
+         li.ui-state-default a {
+          padding:10px; 
+          display:block;
+          text-shadow:0px -1px 0px #222;
+          color:#fff;
+          font-weight:bold;
+         }
+         li.ui-tabs-selected, 
+         li.ui-state-active, 
+         .ui-tabs-nav li:hover {  
+          border:1px #ddd solid;
+          border-right:1px #ddd solid;
+          background:#fff;
+          background:-webkit-gradient(linear, left top, right top, from(#fdfdfd), to(#f0f0f0));
+         }
+         li.ui-tabs-selected a, 
+         li.ui-state-active a, 
+         .ui-tabs-nav li:hover a {       
+          color:#333;
+          text-shadow:0px -1px 1px #fff;
+         }
+         div.ui-tabs-panel { 
+          border:1px #ddd solid;
+          width:561px;
+          margin:20px 0 30px 109px; 
+          padding:10px 15px;
+         }
+         div.ui-tabs-panel h3 { 
+           margin:0 0 5px 0;
+         }
+         .ui-tabs .ui-tabs-hide {
+           display: none;
+         }
+         .clearfix { height:1px;clear:both; }
+      </style>
       
-      <p i18n:translate="license.choose_button">
+      <h3 tal:attributes="dir get_ltr_rtl|nothing; style is_rtl_align|nothing;" class="no-margin">You can view the human readable <a tal:attributes="href license/uri">deed</a> form or the full  <a tal:attributes="href python: license.uri + 'legalcode'">legal code</a>.</h3>
+      
+      <div id="next-steps">
+
+      <ul>
+        <li>
+          <a href="#html-step">HTML</a>
+        </li>
+        <li>
+          <a href="#offline-step">Offline Work</a>
+        </li>
+        <li>
+          <a href="#xmp-step">XMP Metadata</a>
+        </li>
+        <li>
+          <a href="#graphics-step">License graphics</a>
+        </li>
+      </ul>
+        
+
+      <div id="html-step">
+        
+        <h3>Mark Your Website</h3>
+        
+        <div class="preview" id="results-preview" 
+           tal:content="structure license_html">
+        </div>
+      
+      
+        <p i18n:translate="license.choose_button">
         Choose which style of button you'd like on your webpage:
       </p>
       
-      <div class="licensebox">
-        <div style="margin-top:10px;" align="center">
+      <div class="licensebox" style="width:534px;margin:10px 0"
+         tal:define="target_lang string:en;">
+        <div align="center">
           <table tal:attributes="dir get_ltr_rtl;"><tr>
               <td style="text-align:center">
                 <a tal:attributes="href license/uri"
@@ -64,90 +154,6 @@
         </div>
       </div>
 
-      <div i18n:translate="license.preview">
-          Here's a preview of how your license will appear on your site:
-      </div>
-      
-      <div class="preview" id="results-preview" 
-           tal:content="structure license_html">
-      </div>
-      
-      <style>
-         .ui-tabs { padding:0; margin:0; }
-         .ui-tabs-nav {
-          padding:0 !important;
-          margin:0;
-          width:120px;
-          float:left;
-         }
-         li.ui-state-default { 
-          margin:0 10px 5px 0;
-          padding:0px;
-          list-style:none;
-          border-radius:5px;
-          border:1px #444 solid;
-          background:#555;
-          border-right:none;
-         }
-         li.ui-state-default:last-child { 
-          margin-bottom:0px;
-         }
-         li.ui-state-default a {
-          padding:10px; 
-          display:block;
-          text-shadow:0px -1px 0px #222;
-          color:#fff;
-          font-weight:bold;
-         }
-         li.ui-tabs-selected, 
-         li.ui-state-active, 
-         .ui-tabs-nav li:hover {  
-          margin-right:0px;
-          border-top-right-radius:0px;
-          border-bottom-right-radius:0px;
-          border:1px #ddd solid;
-          border-right:none;
-          background:#fff;
-         }
-         li.ui-tabs-selected a, 
-         li.ui-state-active a, 
-         .ui-tabs-nav li:hover a {       
-          color:#1C438B;
-          text-shadow:0px -1px 1px #fff;
-         }
-         div.ui-tabs-panel { 
-          border:1px #ddd solid;
-          margin:20px 0 30px 119px; 
-          padding:10px 10px 10px 10px;
-         }
-         div.ui-tabs-panel h3 { margin:0 0 5px 0; }
-         .ui-tabs .ui-tabs-hide {
-           display: none;
-         }
-         .clearfix { height:1px;clear:both; }
-      </style>
-      
-      <div id="next-steps">
-
-      <ul>
-        <li>
-          <a href="#html-step" i18n:translate="license.have_your_own_website">Have your own website?</a>
-        </li>
-        <li>
-          <a href="#offline-step">Offline Work</a>
-        </li>
-        <li>
-          <a href="#xmp-step">XMP Metadata</a>
-        </li>
-        <li>
-          <a href="#graphics-step">License graphics</a>
-        </li>
-      </ul>
-        
-
-      <div id="html-step">
-        
-        <h3>Have Your Own Website?</h3>
         
         <p i18n:translate="license.copy_text">
           Copy the text below to your Web site to let your visitors
@@ -204,7 +210,8 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
         <h3>XMP Metadata</h3>
 
          <p i18n:translate="license.xmp_text">
-          Copy the text below to include XMP metadata in your work.
+           Use the text below to mark works in applications which support
+<a href="http://wiki.creativecommons.org/XMP">XMP</a>.
         </p>
 
         <form action="">
@@ -217,7 +224,11 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
       </div>
       <div id="graphics-step">
         <h3>License Buttons</h3>
-        <p>For higher resolution license buttons, click on the desired file type below the image.</p>
+
+        <p>Download high resolution and vector versions of the license graphics
+          here. Use of these images is covered by the 
+          <a href="http://creativecommons.org/policies#trademark">Creative Commons trademark policy</a>.
+        </p>
         <ul class="presskit" style="margin:10px 0;padding:0;clear:none;">
           <li>
             <img alt="Creative Commons License"
@@ -240,18 +251,24 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
             
           </li>
         </ul>    
+
+        <p>Additional graphics, colors, and type information are available in the <a href="http://creativecommons.org/about/downloads">Press Kit</a>.</p>
+        
+        <!--
         <h3>Icons</h3> 
         <ul class="presskit" style="margin:10px 0;padding:0;clear:none;"> 
           <li><img src="http://mirrors.creativecommons.org/presskit/icons/cc.png" alt="cc" /><br /> 
             <strong>CC</strong><br /> 
             <br /><a href="http://mirrors.creativecommons.org/presskit/icons/cc.svg">svg</a> <a href="http://mirrors.creativecommons.org/presskit/icons/cc.eps">eps</a> <a href="http://mirrors.creativecommons.org/presskit/icons/cc.large.png">png</a> </li> 
           
-          <li tal:repeat="code python:license.license_code.split('-')">
+          <li tal:repeat="code python:license.license_code.replace('-','|').replace('nc', 'nc|nc-eu|nc-jp').split('|')">
             <img tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.png' % code; alt code" /><br /> 
             <strong tal:content="python:code.upper()"></strong><br /> 
             <br /><a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.svg' % code">svg</a> <a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.eps' % code">eps</a> <a tal:attributes="src python: 'http://mirrors.creativecommons.org/presskit/icons/%s.large.png' % code">png</a></li> 
            
         </ul>
+
+        -->
       </div>
       </div>
       <div class="clearfix">&nbsp;</div>
@@ -264,7 +281,7 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
 	    });
       </script>
 
-        <div id="chooserDonate">
+        <div id="chooserDonate" style="width:100%">
           <div>
             <a href="https://creativecommons.net/donate/"><img src="/images/support/2010/cc-support.png" alt="Donate" title="Donate" border="0"/></a></div>
             <p i18n:translate="license.donate_message">
@@ -284,9 +301,7 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
            language box
            </div>
       -->
-    </div>
 
-    <metal:sidebar fill-slot="sidebar">
       <p i18n:translate="license.learn_host">
         Learn about other places you can host your licensed files. These
         sites work with your Creative Commons license.
@@ -312,27 +327,17 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
              i18n:translate="license.publish_blog"
              class="publish-link">Add a Creative Commons license to your blog</a>
         </li>
-      </ul>
-
-      <h4 i18n:translate="license.offline_work">Offline Work?</h4>
-
-      <ul>
-        <li i18n:translate="license.mark_nonweb">
-          <%=[ccommons::istr $lang license.mark_nonweb]%>
-          <span tal:omit-tag="" i18n:name="url_vars"
-                tal:content="request/query_string" />
-        </li>
-      </ul>
-
-      <h4 i18n:translate="license.option_next_steps">Optional next step</h4>
-
-      <ul>
         <li>
           <a href="https://creativecommons.net/r/add/"
              i18n:translate="license.register_with_cc_network"
              >Register your work with the CC Network</a>
         </li>
       </ul>
+
+    </div>
+
+    <metal:sidebar fill-slot="sidebar">
+      
     </metal:sidebar>
   </body>
 </html>
