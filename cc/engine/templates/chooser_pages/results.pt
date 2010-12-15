@@ -247,7 +247,7 @@ This work is licensed under the Creative Commons <span tal:omit-tag="" i18n:name
           </li>
         </ul>    
 
-        <pi18n:translate="license.additional_graphics">Additional graphics, colors, and type information are available in the <a href="http://creativecommons.org/about/downloads">Press Kit</a>.</p>
+        <p i18n:translate="license.additional_graphics">Additional graphics, colors, and type information are available in the <a href="http://creativecommons.org/about/downloads">Press Kit</a>.</p>
         
       </div>
       </div>
