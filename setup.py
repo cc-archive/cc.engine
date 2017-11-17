@@ -23,11 +23,11 @@ from setuptools import setup, find_packages
 
 setup(
     name = "cc.engine",
-    version = "10.2",
+    version = "10.2.1",
     namespace_packages = ['cc',],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     zip_safe=False,
-    
+
     include_package_data = True,
 
     # scripts and dependencies
@@ -51,8 +51,10 @@ setup(
         ],
 
     dependency_links = [
-        'http://code.creativecommons.org/basket/',
-        ],
+        'https://github.com/creativecommons/cc.i18n/tarball/master#egg=cc.i18n',
+        'https://github.com/creativecommons/cc.license/tarball/master#egg=cc.license',
+        'https://github.com/creativecommons/cc.licenserdf/tarball/master#egg=cc.licenserdf',
+      ],
 
     # author metadata
     author = 'Christopher Webber',
