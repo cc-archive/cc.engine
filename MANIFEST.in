@@ -1,3 +1,4 @@
 recursive-include cc/engine/templates *.pt
+recursive-include cc/engine/templates *.html
 
 include cc/engine/iso3166.csv
