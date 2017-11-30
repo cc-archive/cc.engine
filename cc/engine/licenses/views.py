@@ -100,7 +100,7 @@ def license_deed_view(request):
     #  - Or, next gets the jurisdictions' default language if the jurisdiction
     #    specifies one
     #  - Otherwise it's english!
-    if request.matchdict.has_key('target_lang'):
+    if 'target_lang' in request.matchdict:
         target_lang = request.matchdict.get('target_lang')
     elif license.jurisdiction.default_language:
         target_lang = locale_to_lower_upper(
@@ -146,7 +146,7 @@ def license_deed_view(request):
         redirect_to = base_url + 'deed.' + negotiated_locale
         return exc.HTTPFound(location=redirect_to)
 
-    if DEED_TEMPLATE_MAPPING.has_key(license.license_code):
+    if license.license_code in DEED_TEMPLATE_MAPPING:
         main_template = DEED_TEMPLATE_MAPPING[license.license_code]
     else:
         main_template = 'licenses/standard_deed.html'

@@ -7,7 +7,7 @@ class StaticDirect(object):
         self.cache = {}
 
     def __call__(self, filepath):
-        if self.cache.has_key(filepath):
+        if filepath in self.cache:
             return self.cache[filepath]
 
         static_direction = self.cache[filepath] = self.get(filepath)

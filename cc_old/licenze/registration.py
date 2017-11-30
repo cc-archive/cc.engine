@@ -1,9 +1,10 @@
 """Non-ZCML registrations for cc.licenze."""
+from __future__ import absolute_import
 
 from zope import component
 
-import interfaces
-import zero
+from . import interfaces
+from . import zero
 
 # CC0
 zero_chooser = zero.ZeroSelector()

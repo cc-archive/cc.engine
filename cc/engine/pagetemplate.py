@@ -13,7 +13,7 @@ from cc.i18n.util import negotiate_locale
 class CCLPageTemplateFile(PageTemplateFile):
     def __init__(self, *args, **kwargs):
         self.target_language = None
-        if kwargs.has_key('target_language'):
+        if 'target_language' in kwargs:
             self.target_language = kwargs['target_language']
             kwargs.pop('target_language')
         PageTemplateFile.__init__(self, *args, **kwargs)
@@ -34,7 +34,7 @@ class CCLPageTemplateFile(PageTemplateFile):
 class CCLExpressionEngine(ExpressionEngine):
     def __init__(self, *args, **kwargs):
         self.target_language = None
-        if kwargs.has_key('target_language'):
+        if 'target_language' in kwargs:
             self.target_language = kwargs['target_language']
             kwargs.pop('target_language')
         ExpressionEngine.__init__(self, *args, **kwargs)
@@ -52,7 +52,7 @@ class CCLExpressionEngine(ExpressionEngine):
 class CCLContext(Context):
     def __init__(self, *args, **kwargs):
         self.target_language = None
-        if kwargs.has_key('target_language'):
+        if 'target_language' in kwargs:
             self.target_language = kwargs['target_language']
             kwargs.pop('target_language')
         Context.__init__(self, *args, **kwargs)

@@ -1,4 +1,5 @@
 """cc.license implementation for Public Domain Assertion."""
+from __future__ import absolute_import
 from urlparse import urlparse
 
 from zope.interface import implements
@@ -7,7 +8,7 @@ from zope.component import *
 from cc.license.exceptions import LicenseException
 
 import cc.licenze.interfaces as interfaces
-import license
+from . import license
 
 class Selector(object):
     implements(interfaces.ILicenseSelector)

@@ -21,9 +21,18 @@
 
 from setuptools import setup, find_packages
 
+import sys
+if sys.version_info < (3, 0):
+    JINJA = [ 'jinja2']
+elif sys.version_info < (3, 6):
+    # https://stackoverflow.com/questions/43163201/pyinstaller-syntax-error-yield-inside-async-function-python-3-5-1/43177028
+    JINJA = [ 'jinja2==2.8.1' ]
+else:
+    JINJA = [ 'jinja2' ]
+
 setup(
     name = "cc.engine",
-    version = "10.2.1",
+    version = "10.3.0",
     namespace_packages = ['cc',],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     zip_safe=False,
@@ -32,7 +41,7 @@ setup(
 
     # scripts and dependencies
     install_requires = [
-        'rdflib<3.0',
+        'rdflib',
         'setuptools',
         'cc.licenserdf',
         'cc.license',
@@ -46,14 +55,13 @@ setup(
         'wsgi_cache',
         'flup==1.0.2',
         'simplejson',
-        'jinja2',
         'poster', # for validation tests
-        ],
+        ] + JINJA2,
 
     dependency_links = [
-        'https://github.com/creativecommons/cc.i18n/tarball/master#egg=cc.i18n',
-        'https://github.com/creativecommons/cc.license/tarball/master#egg=cc.license',
-        'https://github.com/creativecommons/cc.licenserdf/tarball/master#egg=cc.licenserdf',
+        'https://github.com/creativecommons/cc.i18n/tarball/python3#egg=cc.i18n',
+        'https://github.com/creativecommons/cc.license/tarball/python3#egg=cc.license',
+        'https://github.com/creativecommons/cc.licenserdf/tarball/python3#egg=cc.licenserdf',
       ],
 
     # author metadata

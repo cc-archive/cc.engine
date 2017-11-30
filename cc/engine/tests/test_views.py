@@ -1,3 +1,4 @@
+from __future__ import print_function
 import cgi
 import pkg_resources
 import urlparse
@@ -323,8 +324,7 @@ class TestEmailSenderViews(unittest.TestCase):
         assert 'You feel charged up!' in mail_body
 
         # check that the right template was loaded
-        assert util.TEST_TEMPLATE_CONTEXT.has_key(
-            'chooser_pages/emailhtml.html')
+        assert 'chooser_pages/emailhtml.html' in util.TEST_TEMPLATE_CONTEXT
 
         # For doing a GET (shouldn't send email!)
         # ---------------------------------------
@@ -356,8 +356,7 @@ class TestEmailSenderViews(unittest.TestCase):
         assert 'To the extent possible under law,' in mail_body
 
         # check that the right template was loaded
-        assert util.TEST_TEMPLATE_CONTEXT.has_key(
-            'chooser_pages/zero/results.html')
+        assert 'chooser_pages/zero/results.html' in util.TEST_TEMPLATE_CONTEXT
 
         # For doing a GET (shouldn't send email!)
         # ---------------------------------------
@@ -371,8 +370,7 @@ class TestEmailSenderViews(unittest.TestCase):
         assert_equal(len(util.EMAIL_TEST_INBOX), 0)
 
         # check that the right template was loaded
-        assert util.TEST_TEMPLATE_CONTEXT.has_key(
-            'chooser_pages/zero/results.html')
+        assert 'chooser_pages/zero/results.html' in util.TEST_TEMPLATE_CONTEXT
 
 
     def test_pdmark_results_email_send(self):
@@ -397,8 +395,7 @@ class TestEmailSenderViews(unittest.TestCase):
         assert 'free of known copyright restrictions' in mail_body
 
         # check that the right template was loaded
-        assert util.TEST_TEMPLATE_CONTEXT.has_key(
-            'chooser_pages/pdmark/results.html')
+        assert 'chooser_pages/pdmark/results.html' in util.TEST_TEMPLATE_CONTEXT
 
         # For doing a GET (shouldn't send email!)
         # ---------------------------------------
@@ -412,8 +409,7 @@ class TestEmailSenderViews(unittest.TestCase):
         assert_equal(len(util.EMAIL_TEST_INBOX), 0)
 
         # check that the right template was loaded
-        assert util.TEST_TEMPLATE_CONTEXT.has_key(
-            'chooser_pages/pdmark/results.html')
+        assert 'chooser_pages/pdmark/results.html' in util.TEST_TEMPLATE_CONTEXT
 
 
 def test_publicdomain_direct_redirect():
@@ -914,7 +910,7 @@ def test_deed_w3_validation():
     failures = []
 
     try:
-        print "\n"
+        print("\n")
         for path in paths:
             view_result = TESTAPP.get(path).unicode_body.encode('utf-8')
             temp_path = os.path.join(temp_dir, "validate_me.html")
@@ -934,16 +930,16 @@ def test_deed_w3_validation():
             try:
                 raw = urllib2.urlopen(req).read()
             except urllib2.HTTPError:
-                print "(proxy error... waiting 30 seconds before retry...)"
+                print("(proxy error... waiting 30 seconds before retry...)")
                 import time; time.sleep(30)
                 raw = urllib2.urlopen(req).read()
             html = lxml_html.fromstring(raw)
             result = html.get_element_by_id("result")
             if result.findall("h3")[0].text == "Congratulations":
-                print "\n==>", path, "passes the w3c validator :D\n"
+                print("\n==>", path, "passes the w3c validator :D\n")
                 continue
             else:
-                print "\n==>", path, "fails the w3c validator:\n"
+                print("\n==>", path, "fails the w3c validator:\n")
                 errors = html.get_element_by_id("error_loop").findall("*")
                 error_count = len(errors)
                 failures.append((path, error_count))
@@ -952,7 +948,7 @@ def test_deed_w3_validation():
                     info = map(str.strip, text.pop(0).split("\n"))
                     info = "".join(info).split(",")
                     info.append("".join(text).strip())
-                    print " {0} {1}\n   {2}\n".format(*info)
+                    print(" {0} {1}\n   {2}\n".format(*info))
                 #import pdb; pdb.set_trace()
     except:
         # clean up tempfiles before raising an error

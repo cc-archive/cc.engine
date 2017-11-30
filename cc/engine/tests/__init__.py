@@ -1,3 +1,4 @@
+from __future__ import print_function
 import subprocess
 import time
 TEST_SERVER_PROCESS = None
@@ -8,7 +9,7 @@ def setup_package():
     """Start the test server."""
     global TEST_SERVER_PROCESS
 
-    print "Starting test server..."
+    print("Starting test server...")
     TEST_SERVER_PROCESS = subprocess.Popen(
         ("./bin/paster", "serve", "cc.engine.ini", "--server-name=test_server",
          "http_port="+TEST_SERVER_PORT),
@@ -21,5 +22,5 @@ def teardown_package():
     """Kill test server."""
     global TEST_SERVER_PROCESS
 
-    print "Killing test server..."
+    print("Killing test server...")
     TEST_SERVER_PROCESS.kill()

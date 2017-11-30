@@ -31,7 +31,7 @@ class CCEngineApp(object):
     def form_value_ok(self, form, key, regex):
         """True if the value is absent, or is present and matches the regex"""
         result = True
-        if form.has_key(key) and form[key] != '':
+        if key in form and form[key] != '':
             result = re.match(regex, form[key])
         return result
 
@@ -55,7 +55,7 @@ class CCEngineApp(object):
         # utf-8 uri. So catch that eventuality and 404 on it.
         try:
             path_info = request.path_info
-        except UnicodeDecodeError, e:
+        except UnicodeDecodeError as e:
             response = util.generate_404_response(request, routing, environ,
                                                   self.staticdirector)
             return response(environ, start_response)
@@ -64,7 +64,7 @@ class CCEngineApp(object):
         # encoded data that will blow things up later so bail now.
         try:
             form = request.GET or request.POST
-        except UnicodeDecodeError, e:
+        except UnicodeDecodeError as e:
             # Someone fed us some un-encoded or badly encoded values in the form
             response = exc.HTTPBadRequest('Character encoding error in query.')
             return response(environ, start_response)
@@ -114,10 +114,10 @@ class CCEngineApp(object):
 
 
 def ccengine_app_factory(global_config, **kw):
-    if kw.has_key('direct_remote_path'):
+    if 'direct_remote_path' in kw:
         staticdirector = staticdirect.RemoteStaticDirect(
             kw['direct_remote_path'].strip())
-    elif kw.has_key('direct_remote_paths'):
+    elif 'direct_remote_paths' in kw:
         staticdirector = staticdirect.MultiRemoteStaticDirect(
             dict([line.strip().split(' ', 1)
                   for line in kw['direct_remote_paths'].strip().splitlines()]))

@@ -52,9 +52,9 @@ def test_xhr_api():
 
     # Blank request returns defaults
     res = response({});
-    assert res.has_key("license_html")
-    assert res.has_key("license_title")
-    assert res.has_key("uri")
-    assert res.has_key("license_logo")
-    assert res.has_key("libre")
-    assert res.has_key("license_slim_logo")
+    assert "license_html" in res
+    assert "license_title" in res
+    assert "uri" in res
+    assert "license_logo" in res
+    assert "libre" in res
+    assert "license_slim_logo" in res

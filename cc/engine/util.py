@@ -161,7 +161,7 @@ def _get_xpath_attribute(etree, path, attribute):
     """
     try:
         return etree.xpath(path)[0].attrib[attribute]
-    except IndexError, KeyError:
+    except IndexError as KeyError:
         return None
 
 
@@ -226,7 +226,7 @@ def subset_dict(orig_dict, subset_keys):
     new_dict = {}
 
     for key in subset_keys:
-        if orig_dict.has_key(key):
+        if key in orig_dict:
             new_dict[key] = orig_dict[key]
 
     return new_dict
@@ -542,16 +542,16 @@ ACCEPT_LANG_CACHE = {}
 def get_target_lang_from_request(request, default_locale='en'):
     request_form = request.GET or request.POST
 
-    if request_form.has_key('lang') and request_form['lang'] != '':
+    if 'lang' in request_form and request_form['lang'] != '':
         return locale_to_lower_upper(request_form['lang'])
 
     try:
-        if request.matchdict.has_key('target_lang'):
+        if 'target_lang' in request.matchdict:
             target_lang = request.matchdict['target_lang']
         else:
             header_value = request.accept_language.header_value
 
-            if ACCEPT_LANG_CACHE.has_key(header_value):
+            if header_value in ACCEPT_LANG_CACHE:
                 return ACCEPT_LANG_CACHE[header_value]
 
             # clean the header into something we can use
@@ -596,7 +596,7 @@ def get_target_lang_from_request(request, default_locale='en'):
 
     try:
         ACCEPT_LANG_CACHE[header_value] = target_lang
-    except NameError, e:
+    except NameError as e:
         # We didn't set the header_value, so don't try to use it as a key
         pass
 
@@ -633,7 +633,7 @@ def catch_license_versions_from_request(request):
     license_versions = []
     code = request.matchdict['code']
     searches = [[code]]
-    if request.matchdict.has_key('jurisdiction'):
+    if 'jurisdiction' in request.matchdict:
         # Look to see if there are other licenses of that code, possibly of
         # that jurisdiction.  Otherwise, we'll just look it up by code.  Also,
         # if by jurisdiction fails, by code will be the fallback.

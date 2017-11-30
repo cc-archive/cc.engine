@@ -71,36 +71,36 @@ def _work_info(request_form):
     # look for keys from the license chooser interface
 
     # work title
-    if request_form.has_key('field_worktitle'):
+    if 'field_worktitle' in request_form:
         result['title'] = request_form['field_worktitle']
 
     # creator
-    if request_form.has_key('field_creator'):
+    if 'field_creator' in request_form:
         result['creator'] = request_form['field_creator']
 
     # copyright holder
-    if request_form.has_key('field_copyrightholder'):
+    if 'field_copyrightholder' in request_form:
         result['copyright_holder'] = result['holder'] = \
             request_form['field_copyrightholder']
-    if request_form.has_key('copyright_holder'):
+    if 'copyright_holder' in request_form:
         result['holder'] = request_form['copyright_holder']
 
     # copyright year
-    if request_form.has_key('field_year'):
+    if 'field_year' in request_form:
         result['copyright_year'] = result['year'] = request_form['field_year']
-    if request_form.has_key('copyright_year'):
+    if 'copyright_year' in request_form:
         result['year'] = request_form['copyright_year']
 
     # description
-    if request_form.has_key('field_description'):
+    if 'field_description' in request_form:
         result['description'] = request_form['field_description']
 
     # format
-    if request_form.has_key('field_format'):
+    if 'field_format' in request_form:
         result['format'] = result['type'] = request_form['field_format']
 
     # source url
-    if request_form.has_key('field_sourceurl'):
+    if 'field_sourceurl' in request_form:
         result['source_work_url'] = result['source-url'] = \
             request_form['field_sourceurl']
 
@@ -112,15 +112,15 @@ def _work_info(request_form):
             result['source_work_domain'] = result['source_work_url']
 
     # attribution name
-    if request_form.has_key('field_attribute_to_name'):
+    if 'field_attribute_to_name' in request_form:
         result['attribution_name'] = request_form['field_attribute_to_name']
 
     # attribution URL
-    if request_form.has_key('field_attribute_to_url'):
+    if 'field_attribute_to_url' in request_form:
         result['attribution_url'] = request_form['field_attribute_to_url']
 
     # more permissions URL
-    if request_form.has_key('field_morepermissionsurl'):
+    if 'field_morepermissionsurl' in request_form:
         result['more_permissions_url'] = request_form['field_morepermissionsurl']
 
     return result
@@ -172,20 +172,20 @@ def _issue_license(request_form):
                         # moment
 
     # Handle public domain class
-    if request_form.has_key('pd') or \
-            request_form.has_key('publicdomain') or \
+    if 'pd' in request_form or \
+            'publicdomain' in request_form or \
             request_form.get('license_code', None) == 'publicdomain':
         return cc.license.by_code('publicdomain')
 
     # check for license_code
-    elif request_form.has_key('license_code'):
+    elif 'license_code' in request_form:
         return cc.license.by_code(
             request_form['license_code'],
             jurisdiction=jurisdiction,
             version=version)
 
     # check for license_url
-    elif request_form.has_key('license_url'):
+    elif 'license_url' in request_form:
         return cc.license.by_uri(str(request_form['license_url']))
 
     else:
@@ -293,7 +293,7 @@ def classic_chooser_view(request):
         if j.code != '']
     
     requested_jurisdiction = None
-    if request.GET.has_key('jurisdiction') and \
+    if 'jurisdiction' in request.GET and \
             request.GET['jurisdiction'] in available_jurisdiction_codes:
         requested_jurisdiction = request.GET['jurisdiction']        
 
@@ -405,7 +405,7 @@ def chooser_view(request):
         if j.code != '']
     
     requested_jurisdiction = None
-    if request.GET.has_key('jurisdiction') and \
+    if 'jurisdiction' in request.GET and \
             request.GET['jurisdiction'] in available_jurisdiction_codes:
         requested_jurisdiction = request.GET['jurisdiction']        
 
@@ -448,13 +448,13 @@ def chooser_view(request):
             }
         }
     def equal_or_default(field, value, default=False):
-        if request_form.has_key(field):
+        if field in request_form:
             return request_form[field] == value
         else:
             return default
 
     def value_or_default(field, default=""):
-        if request_form.has_key(field):
+        if field in request_form:
             return unquote(request_form[field]).encode("utf-8")
         else:
             return default
