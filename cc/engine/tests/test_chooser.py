@@ -46,7 +46,7 @@ def test_xhr_api():
     # don't repeat yourself
     def response(get_dict):
         req = Request.blank("/interactive_chooser")
-        for key, value in get_dict.items():
+        for key, value in list(get_dict.items()):
             req.GET.add(key, value)
         return json.loads(xhr_api(req).body)
 

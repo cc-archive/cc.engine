@@ -1,6 +1,9 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import re
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import routes
 from webob import Request, exc
@@ -95,7 +98,7 @@ class CCEngineApp(object):
                 new_path_info = path_info + '/'
                 if request.GET:
                     new_path_info = '%s?%s' % (
-                        new_path_info, urllib.urlencode(request.GET))
+                        new_path_info, urllib.parse.urlencode(request.GET))
                 redirect = exc.HTTPFound(location=new_path_info)
                 return request.get_response(redirect)(environ, start_response)
             # Return a 404

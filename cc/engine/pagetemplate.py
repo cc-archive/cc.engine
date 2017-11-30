@@ -62,7 +62,7 @@ class CCLContext(Context):
             msgid, domain, mapping,
             default=default,
             target_language=negotiate_locale(self.target_language))
-        if isinstance(translation, unicode):
+        if isinstance(translation, str):
             return translation
 
         try:

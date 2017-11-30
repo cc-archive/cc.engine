@@ -1,3 +1,4 @@
+from builtins import object
 from webob.exc import HTTPNotFound, HTTPMethodNotAllowed
 
 from cc.license import by_code

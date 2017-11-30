@@ -1,3 +1,4 @@
+from builtins import range
 from zope.app.locales.extract import POTMaker, POTEntry
 from zope.app.locales.extract import py_strings
 from zope.app.locales.extract import tal_strings
@@ -36,7 +37,7 @@ class CCPOTEntry(POTEntry):
 
 class CCPOTMaker(POTMaker):
     def add(self, strings, base_dir=None):
-        for msgid, locations in strings.items():
+        for msgid, locations in list(strings.items()):
             if msgid == '':
                 continue
             if msgid not in self.catalog:

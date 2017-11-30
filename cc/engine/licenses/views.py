@@ -1,5 +1,7 @@
+from future import standard_library
+standard_library.install_aliases()
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import requests
 
 from lxml import etree
@@ -151,12 +153,12 @@ def license_deed_view(request):
     else:
         main_template = 'licenses/standard_deed.html'
 
-    get_this = "/choose/results-one?license_code=%s&amp;jurisdiction=%s&amp;version=%s&amp;lang=%s" % (urllib.quote(license.license_code), license.jurisdiction.code, license.version, target_lang)
+    get_this = "/choose/results-one?license_code=%s&amp;jurisdiction=%s&amp;version=%s&amp;lang=%s" % (urllib.parse.quote(license.license_code), license.jurisdiction.code, license.version, target_lang)
 
     context = {
         'request': request,
         'license_code': license.license_code,
-        'license_code_quoted': urllib.quote(license.license_code),
+        'license_code_quoted': urllib.parse.quote(license.license_code),
         'license_title': license_title,
         'license': license,
         'multi_language': multi_language,

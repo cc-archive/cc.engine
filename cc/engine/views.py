@@ -1,4 +1,6 @@
-import urllib
+from future import standard_library
+standard_library.install_aliases()
+import urllib.request, urllib.parse, urllib.error
 
 from webob import Response, exc
 
@@ -13,7 +15,7 @@ def license_redirect(request):
     request_form = request.GET or request.POST
     if request_form:
         new_url = '%s?%s' % (
-            new_url, urllib.urlencode(request_form))
+            new_url, urllib.parse.urlencode(request_form))
     return exc.HTTPMovedPermanently(location=new_url)
 
 
@@ -21,5 +23,5 @@ def work_html_redirect(request):
     new_url = '/choose/work-html-popup'
     if request.GET:
         new_url = '%s?%s' % (
-            new_url, urllib.urlencode(request.GET))
+            new_url, urllib.parse.urlencode(request.GET))
     return exc.HTTPMovedPermanently(location=new_url)

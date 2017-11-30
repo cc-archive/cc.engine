@@ -1,8 +1,13 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import map
+from builtins import object
 import os
 import pkg_resources
 import string
 import smtplib
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from email.MIMEText import MIMEText
 import email.Charset
@@ -242,7 +247,7 @@ def publicdomain_partner_get_params(request_form):
         request_form,
         ['lang', 'partner', 'exit_url', 'stylesheet'])
 
-    get_params = urllib.urlencode(get_params_dict)
+    get_params = urllib.parse.urlencode(get_params_dict)
 
     return get_params
 
@@ -328,7 +333,7 @@ def get_all_license_urls():
 
 
 def unicode_cleaner(string):
-    if isinstance(string, unicode):
+    if isinstance(string, str):
         return string
 
     try:
@@ -558,7 +563,7 @@ def get_target_lang_from_request(request, default_locale='en'):
             accept_lang = []
             for part in header_value.split(","):
                 try:
-                    locale, quality = map(str.strip, part.split(";"))
+                    locale, quality = list(map(str.strip, part.split(";")))
                     quality = float(quality)
                 except ValueError:
                     locale = part.strip()

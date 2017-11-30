@@ -1,6 +1,9 @@
 """cc.license implementation for CC0."""
 from __future__ import absolute_import
-from urlparse import urlparse
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+from urllib.parse import urlparse
 
 from zope.interface import implements
 

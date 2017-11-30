@@ -1,5 +1,8 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import email
-import StringIO
+import io
 
 from nose.tools import assert_raises
 from lxml import etree
@@ -76,7 +79,7 @@ def test_get_target_lang_from_request():
 
 def test_get_xpath_attribute():
     tree = etree.parse(
-        StringIO.StringIO('<foo><bar><baz basil="herb" /></bar></foo>'))
+        io.StringIO('<foo><bar><baz basil="herb" /></bar></foo>'))
     assert util._get_xpath_attribute(tree, '/foo/bar/baz', 'basil') == 'herb'
 
 

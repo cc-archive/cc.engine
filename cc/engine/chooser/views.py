@@ -1,9 +1,12 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 import sys
 import json
 from lxml import etree
-from urlparse import urlparse, urljoin
-from urllib import quote, unquote, unquote_plus, urlencode
-from StringIO import StringIO
+from urllib.parse import urlparse, urljoin
+from urllib.parse import quote, unquote, unquote_plus, urlencode
+from io import StringIO
 
 from webob import Response, exc
 
@@ -229,9 +232,7 @@ NS_DC = 'http://purl.org/dc/elements/1.1/'
 NS_DCQ = 'http://purl.org/dc/terms/'
 NS_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#"
-LXML_PRE_CC, LXML_PRE_DC, LXML_PRE_DCQ, LXML_PRE_RDF, LXML_PRE_RDFS = map(
-    lambda ns: "{%s}" % ns,
-    (NS_CC, NS_DC, NS_DCQ, NS_RDF, NS_RDFS))
+LXML_PRE_CC, LXML_PRE_DC, LXML_PRE_DCQ, LXML_PRE_RDF, LXML_PRE_RDFS = ["{%s}" % ns for ns in (NS_CC, NS_DC, NS_DCQ, NS_RDF, NS_RDFS)]
 
 NSMAP = {
     None: NS_CC,

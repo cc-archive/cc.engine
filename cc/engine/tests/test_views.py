@@ -1,14 +1,17 @@
 from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
 import cgi
 import pkg_resources
-import urlparse
-import urllib
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import unittest
 from lxml import html as lxml_html
-import StringIO
+import io
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import shutil
 import tempfile
 import os.path
@@ -101,7 +104,7 @@ def test_deed_legalcodes():
         """
         response = TESTAPP.get(request_url)
         response_tree = lxml_html.parse(
-            StringIO.StringIO(response.unicode_body))
+            io.StringIO(response.unicode_body))
         return [
             (el.attrib['href'], el.text.strip())
             for el in response_tree.xpath(
@@ -179,8 +182,8 @@ def test_license_to_choose_redirect():
         '/license/zero/results?'
         'license-class=zero&name=ZeroMan&work_title=SubZero')
     redirected_response = response.follow()
-    assert_equal(urlparse.urlsplit(response.location)[2], '/choose/zero/results')
-    qs = cgi.parse_qs(urlparse.urlsplit(response.location)[3])
+    assert_equal(urllib.parse.urlsplit(response.location)[2], '/choose/zero/results')
+    qs = cgi.parse_qs(urllib.parse.urlsplit(response.location)[3])
     assert_equal(
         qs,
         {'license-class': ['zero'],
@@ -194,8 +197,8 @@ def test_license_to_choose_redirect():
          'name': 'ZeroMan',
          'work_title': 'SubZero'})
     redirected_response = response.follow()
-    assert_equal(urlparse.urlsplit(response.location)[2], '/choose/zero/results')
-    qs = cgi.parse_qs(urlparse.urlsplit(response.location)[3])
+    assert_equal(urllib.parse.urlsplit(response.location)[2], '/choose/zero/results')
+    qs = cgi.parse_qs(urllib.parse.urlsplit(response.location)[3])
     assert_equal(
         qs,
         {'license-class': ['zero'],
@@ -290,7 +293,7 @@ def test_deeds_up_for_licenses():
     license_uris = util.get_all_license_urls()
 
     for license_uri in license_uris:
-        license_path = urlparse.urlsplit(license_uri)[2]
+        license_path = urllib.parse.urlsplit(license_uri)[2]
         TESTAPP.get(license_path)
 
 
@@ -422,9 +425,9 @@ def test_publicdomain_direct_redirect():
         'stylesheet=foo.css&partner=blah')
     redirected_response = response.follow()
     assert_equal(
-        urlparse.urlsplit(response.location)[2],
+        urllib.parse.urlsplit(response.location)[2],
         '/choose/zero/partner')
-    qs = cgi.parse_qs(urlparse.urlsplit(response.location)[3])
+    qs = cgi.parse_qs(urllib.parse.urlsplit(response.location)[3])
     assert_equal(
         qs,
         {'stylesheet': ['foo.css'],
@@ -451,11 +454,11 @@ def test_publicdomain_partners_alternatelinks():
         'stylesheet=http://nethack.org/yendor.css&'
         'extraneous_argument=large%20mimic')
 
-    response_etree = lxml_html.parse(StringIO.StringIO(response.unicode_body))
+    response_etree = lxml_html.parse(io.StringIO(response.unicode_body))
     other_pd_href = response_etree.xpath(
         '//a[text()="CC0 public domain dedication"]')[0].attrib['href']
-    assert_equal(urlparse.urlsplit(other_pd_href)[2], '/choose/zero/partner')
-    qs = cgi.parse_qs(urlparse.urlsplit(other_pd_href)[3])
+    assert_equal(urllib.parse.urlsplit(other_pd_href)[2], '/choose/zero/partner')
+    qs = cgi.parse_qs(urllib.parse.urlsplit(other_pd_href)[3])
     assert_equal(qs, expected_response_qs)
 
     # Test for CC0's PDM link
@@ -466,11 +469,11 @@ def test_publicdomain_partners_alternatelinks():
         'stylesheet=http://nethack.org/yendor.css&'
         'extraneous_argument=large%20mimic')
 
-    response_etree = lxml_html.parse(StringIO.StringIO(response.unicode_body))
+    response_etree = lxml_html.parse(io.StringIO(response.unicode_body))
     other_pd_href = response_etree.xpath(
         '//a[text()="Public Domain Mark"]')[0].attrib['href']
-    assert_equal(urlparse.urlsplit(other_pd_href)[2], '/choose/mark/partner')
-    qs = cgi.parse_qs(urlparse.urlsplit(other_pd_href)[3])
+    assert_equal(urllib.parse.urlsplit(other_pd_href)[2], '/choose/mark/partner')
+    qs = cgi.parse_qs(urllib.parse.urlsplit(other_pd_href)[3])
     assert_equal(qs, expected_response_qs)
 
 
@@ -487,7 +490,7 @@ def test_publicdomain_partners_exiturls():
         'stylesheet=http://nethack.org/yendor.css&'
         'extraneous_argument=large%20mimic')
 
-    response_etree = lxml_html.parse(StringIO.StringIO(response.unicode_body))
+    response_etree = lxml_html.parse(io.StringIO(response.unicode_body))
     proceed_href = response_etree.xpath(
         '//a[text()="proceed"]')[0].attrib['href']
     assert_equal(
@@ -504,7 +507,7 @@ def test_publicdomain_partners_exiturls():
         'stylesheet=http://nethack.org/yendor.css&'
         'extraneous_argument=large%20mimic')
 
-    response_etree = lxml_html.parse(StringIO.StringIO(response.unicode_body))
+    response_etree = lxml_html.parse(io.StringIO(response.unicode_body))
     proceed_href = response_etree.xpath(
         '//a[text()="proceed"]')[0].attrib['href']
     assert_equal(
@@ -523,7 +526,7 @@ def test_deed_fallbacks():
     def _redirects_expectedly(source_url, redirect_url):
         response = TESTAPP.get(source_url)
         redirected_response = response.follow()
-        result_url = urlparse.urlsplit(response.location)[2]
+        result_url = urllib.parse.urlsplit(response.location)[2]
         assert_equal(result_url, redirect_url)
 
     # Redirects for totally absurd language
@@ -569,7 +572,7 @@ def test_choose_retired_redirects():
     response = TESTAPP.get(
         '/choose/results-one?'
         'license_code=devnations&jurisdiction=&version=2.0&lang=en')
-    retired_redirect = urlparse.urlsplit(response.location)[2]
+    retired_redirect = urllib.parse.urlsplit(response.location)[2]
     expected_redirect = '/retiredlicenses'
     assert_equal(retired_redirect, expected_redirect)
 
@@ -577,7 +580,7 @@ def test_choose_retired_redirects():
     response = TESTAPP.get(
         '/choose/results-one?'
         'license_code=publicdomain')
-    retired_redirect = urlparse.urlsplit(response.location)[2]
+    retired_redirect = urllib.parse.urlsplit(response.location)[2]
     expected_redirect = '/publicdomain/'
     assert_equal(retired_redirect, expected_redirect)
 
@@ -600,7 +603,7 @@ def test_results_one_gives_correct_licenses():
         util._clear_test_template_context()
         TESTAPP.get(
             '/choose/results-one?' +
-            urllib.urlencode(parameters))
+            urllib.parse.urlencode(parameters))
         license = util.TEST_TEMPLATE_CONTEXT[
             'chooser_pages/results.html']['license']
         assert_equal(license.uri, expected_url)
@@ -735,7 +738,7 @@ def test_interactive_chooser_gives_correct_licenses():
         util._clear_test_template_context()
         TESTAPP.get(
             '/choose/?' +
-            urllib.urlencode(parameters))
+            urllib.parse.urlencode(parameters))
         license = util.TEST_TEMPLATE_CONTEXT[
             'chooser_pages/interactive_chooser.html']['license']
         assert_equal(license.uri, expected_url)
@@ -861,7 +864,7 @@ def test_license_catcher():
     """
     def get_license_links(response):
         response_tree = lxml_html.parse(
-            StringIO.StringIO(response.unicode_body))
+            io.StringIO(response.unicode_body))
         return [
             el.attrib['href']
             for el in response_tree.xpath("id('suggested_licenses')//a")]
@@ -925,14 +928,14 @@ def test_deed_w3_validation():
                     "doctype" : "Inline",
                     "group" : 0,
                     })
-            req = urllib2.Request("http://validator.w3.org/check",
+            req = urllib.request.Request("http://validator.w3.org/check",
                                   data, headers)
             try:
-                raw = urllib2.urlopen(req).read()
-            except urllib2.HTTPError:
+                raw = urllib.request.urlopen(req).read()
+            except urllib.error.HTTPError:
                 print("(proxy error... waiting 30 seconds before retry...)")
                 import time; time.sleep(30)
-                raw = urllib2.urlopen(req).read()
+                raw = urllib.request.urlopen(req).read()
             html = lxml_html.fromstring(raw)
             result = html.get_element_by_id("result")
             if result.findall("h3")[0].text == "Congratulations":
@@ -945,7 +948,7 @@ def test_deed_w3_validation():
                 failures.append((path, error_count))
                 for error in errors:
                     text = [i.text for i in error.findall("*") if i.text]
-                    info = map(str.strip, text.pop(0).split("\n"))
+                    info = list(map(str.strip, text.pop(0).split("\n")))
                     info = "".join(info).split(",")
                     info.append("".join(text).strip())
                     print(" {0} {1}\n   {2}\n".format(*info))

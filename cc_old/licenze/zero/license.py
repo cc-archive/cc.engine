@@ -1,3 +1,4 @@
+from builtins import object
 from zope.interface import implements
 from cc.license.exceptions import LicenseException
 
