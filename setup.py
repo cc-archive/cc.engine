@@ -56,7 +56,18 @@ setup(
         'flup==1.0.2',
         'simplejson',
         'poster', # for validation tests
-        ] + JINJA2,
+        'lxml', # also for tests
+        # Requirements of requirements
+        'pyparsing', # required by rdflib
+        'isodate', # required by rdflib
+        'pytz', # required by zope.i18n (cc.i18n)
+        'zope.component', # required by zope.i18n (cc.i18n)
+        'zope.schema', # required by zope.i18n (cc.i18n)
+        'zope.i18nmessageid', # required by zope.i18n (cc.i18n)
+        # Moving from Python 2 to Python 3
+        'future',
+        'six'
+        ] + JINJA,
 
     dependency_links = [
         'https://github.com/creativecommons/cc.i18n/tarball/python3#egg=cc.i18n',

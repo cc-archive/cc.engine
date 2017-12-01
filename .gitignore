@@ -16,7 +16,9 @@ cc.engine.egg-info
 *.pyo
 /nosetests.xml
 lib/
-python/
+man/
 include/
-local
-build
+local/
+build/
+share/
+*~
