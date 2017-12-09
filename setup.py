@@ -55,6 +55,7 @@ setup(
         'wsgi_cache',
         'flup==1.0.2',
         'simplejson',
+        'cssselect',
         'poster', # for validation tests
         'lxml', # also for tests
         # Requirements of requirements

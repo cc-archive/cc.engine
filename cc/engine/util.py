@@ -13,7 +13,7 @@ from email.MIMEText import MIMEText
 import email.Charset
 email.Charset.add_charset('utf-8', email.Charset.SHORTEST, None, None)
 
-import RDF
+import rdflib
 from lxml import etree
 import jinja2
 import routes
@@ -276,17 +276,14 @@ def active_languages():
     jurisdictions = cclicense_functions.get_valid_jurisdictions()
 
     for jurisdiction in jurisdictions:
-        query_string = (
+        qstring = (
             'PREFIX dc: <http://purl.org/dc/elements/1.1/> '
             'SELECT ?lang WHERE {'
             '  <%s> dc:language ?lang}') % jurisdiction
 
-        query = RDF.Query(
-            str(query_string),
-            query_language='sparql')
         this_juri_locales = set(
             [locale_to_lower_upper(str(result['lang']))
-             for result in query.execute(rdf_helper.JURI_MODEL)])
+             for result in rdf_helper.JURI_MODEL.query(qstring)])
 
         # Append those locales that are applicable to this domain
         launched_locales.update(lang_codes.intersection(this_juri_locales))
@@ -327,9 +324,8 @@ def get_all_license_urls():
                      ?luri rdf:type cc:License .
                     }
               """
-    query = RDF.Query(qstring, query_language='sparql')
-    return tuple(str(s['luri'].uri)
-                 for s in query.execute(rdf_helper.ALL_MODEL))
+    return tuple(str(s['luri'])
+                 for s in rdf_helper.ALL_MODEL.query(qstring))
 
 
 def unicode_cleaner(string):
