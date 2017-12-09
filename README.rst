@@ -6,9 +6,6 @@ Installation
     git clone https://github.com/creativecommons/cc.engine
     cd cc.engine
     virtualenv .
-    echo "/usr/lib/python2.7/dist-packages/" \
-      > lib/python2.7/site-packages/dist-packages.pth
-          python setup.py install
     . bin/activate
     bin/compile_mo
     bin/transstats
