@@ -19,7 +19,7 @@ def test_restrict_http_methods():
     # pass
     response = restricted_view(get_request)
     assert response.status_int == 200
-    assert response.body == 'successful response'
+    assert response.body.decode('utf-8') == 'successful response'
 
     # fails
     response = restricted_view(post_request)
@@ -34,11 +34,11 @@ def test_restrict_http_methods():
     # pass
     response = restricted_view(post_request)
     assert response.status_int == 200
-    assert response.body == 'successful response'
+    assert response.body.decode('utf-8') == 'successful response'
 
     response = restricted_view(put_request)
     assert response.status_int == 200
-    assert response.body == 'successful response'
+    assert response.body.decode('utf-8') == 'successful response'
 
     # fails
     response = restricted_view(get_request)

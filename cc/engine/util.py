@@ -3,15 +3,22 @@ standard_library.install_aliases()
 from builtins import str
 from builtins import map
 from builtins import object
+from builtins import open
 import os
 import pkg_resources
 import string
 import smtplib
 import urllib.request, urllib.parse, urllib.error
 
-from email.MIMEText import MIMEText
-import email.Charset
-email.Charset.add_charset('utf-8', email.Charset.SHORTEST, None, None)
+import sys
+if (sys.version_info > (3, 0)):
+    from email.mime.text import MIMEText
+    #from email.mime.text import Charset
+    #Charset.add_charset('utf-8', email.Charset.SHORTEST, None, None)
+else:
+    from email.MIMEText import MIMEText
+    import email.Charset
+    email.Charset.add_charset('utf-8', email.Charset.SHORTEST, None, None)
 
 import rdflib
 from lxml import etree
@@ -157,7 +164,7 @@ def get_locale_file_from_locale(locale):
         return this_locale_filename
     else:
         return None
-        
+
 
 def _get_xpath_attribute(etree, path, attribute):
     """
@@ -177,11 +184,11 @@ def get_locale_identity_data(locale):
     Get the identity data for a locale
     """
     locale_filename = get_locale_file_from_locale(locale)
-    
+
     if not locale_filename:
         return {}
 
-    locale_tree = etree.parse(file(locale_filename))
+    locale_tree = etree.parse(open(locale_filename))
     identity_data = {}
     identity_data['language'] = _get_xpath_attribute(
         locale_tree, '/ldml/identity/language', 'type')
@@ -191,7 +198,7 @@ def get_locale_identity_data(locale):
         locale_tree, '/ldml/identity/territory', 'type')
     identity_data['variant'] = _get_xpath_attribute(
         locale_tree, '/ldml/identity/variant', 'type')
-    
+
     return identity_data
 
 
@@ -204,7 +211,7 @@ def get_locale_text_orientation(locale):
     if not locale_filename:
         return u'ltr'
 
-    locale_tree = etree.parse(file(locale_filename))
+    locale_tree = etree.parse(open(locale_filename))
     try:
         char_orientation = locale_tree.xpath(
             '/ldml/layout/orientation')[0].attrib['characters']
@@ -367,8 +374,8 @@ def rtl_context_stuff(locale):
     return {'get_ltr_rtl': text_orientation,
             'is_rtl': is_rtl,
             'is_rtl_align': is_rtl_align}
-    
-    
+
+
 def plain_template_view(template_name, request):
     """
     Not an actual view, but used to build these more tedious views
@@ -409,7 +416,7 @@ def safer_resource_filename(package, resource):
 ### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # We have two "test inboxes" here:
-# 
+#
 # EMAIL_TEST_INBOX:
 # ----------------
 #   If you're writing test views, you'll probably want to check this.
@@ -429,7 +436,7 @@ def safer_resource_filename(package, resource):
 # ***IMPORTANT!***
 # ----------------
 # Before running tests that call functions which send email, you should
-# always call _clear_test_inboxes() to "wipe" the inboxes clean. 
+# always call _clear_test_inboxes() to "wipe" the inboxes clean.
 
 EMAIL_TEST_INBOX = []
 EMAIL_TEST_MBOX_INBOX = []
@@ -468,7 +475,10 @@ def send_email(from_addr, to_addrs, subject, message_body):
 
     mhost.connect()
 
-    message = MIMEText(message_body.encode('utf-8'), 'plain', 'utf-8')
+    if (sys.version_info > (3, 0)):
+        message = MIMEText(str(message_body), 'plain')
+    else:
+        message = MIMEText(message_body.encode('utf-8'), 'plain', 'utf-8')
     message['Subject'] = subject
     message['From'] = from_addr
     message['To'] = ', '.join(to_addrs)
@@ -565,7 +575,7 @@ def get_target_lang_from_request(request, default_locale='en'):
                     locale = part.strip()
                     quality = 1
                 accept_lang.append((locale_to_lower_upper(locale), quality))
-            
+
             available = list(get_all_supported_languages())
 
             def run_matches(accept_lang, available):
@@ -579,7 +589,7 @@ def get_target_lang_from_request(request, default_locale='en'):
 
             # search for exact matches
             target_lang = run_matches(accept_lang, available)
-        
+
             if not target_lang:
                 # search for near matches
                 reduced_accept = [(v.split("_")[0], q) for v,q in accept_lang]
@@ -590,7 +600,7 @@ def get_target_lang_from_request(request, default_locale='en'):
         # header was not defined
         header_value = default_locale
         target_lang = None
-                              
+
     if not target_lang:
         # screw it
         target_lang = default_locale

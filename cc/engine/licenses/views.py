@@ -1,5 +1,6 @@
 from future import standard_library
 standard_library.install_aliases()
+from builtins import open
 import re
 import urllib.request, urllib.parse, urllib.error
 import requests
@@ -180,7 +181,7 @@ def license_deed_view(request):
 
 @get_license
 def license_rdf_view(request, license):
-    rdf_response = Response(file(license_rdf_filename(license.uri)).read())
+    rdf_response = Response(open(license_rdf_filename(license.uri)).read())
     rdf_response.headers['Content-Type'] = 'application/rdf+xml; charset=UTF-8'
     return rdf_response
 

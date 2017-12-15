@@ -32,9 +32,6 @@ def test_issue_license_with_license_code():
 
     assert views._issue_license(request.GET).uri == 'http://creativecommons.org/licenses/by/3.0/au/'
 
-    
-
-
 
 def test_xhr_api():
     """Test cc.engine.chooser.views.xhr_api"""
@@ -48,7 +45,7 @@ def test_xhr_api():
         req = Request.blank("/interactive_chooser")
         for key, value in list(get_dict.items()):
             req.GET.add(key, value)
-        return json.loads(xhr_api(req).body)
+        return xhr_api(req).json
 
     # Blank request returns defaults
     res = response({});

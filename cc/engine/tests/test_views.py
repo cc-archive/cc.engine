@@ -2,19 +2,19 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 from builtins import map
+from builtins import open
 import cgi
 import pkg_resources
-import urllib.parse
+#import urllib.parsee
 import urllib.request, urllib.parse, urllib.error
 import unittest
 from lxml import html as lxml_html
 import io
-from poster.encode import multipart_encode
-from poster.streaminghttp import register_openers
 import urllib.request, urllib.error, urllib.parse
 import shutil
 import tempfile
 import os.path
+import requests
 
 try:
     import json
@@ -65,7 +65,7 @@ def test_404():
 
 def test_root_view():
     response = TESTAPP.get('/')
-    assert_equal(response.body, 'This is the root')
+    assert_equal(response.unicode_body, u'This is the root')
 
 
 ## Deed view tests
@@ -149,7 +149,7 @@ RDF_HEADER = 'application/rdf+xml; charset=UTF-8'
 def _rdf_tester(url, rdf_file):
     response = TESTAPP.get(url)
     rdf_file_contents = util.unicode_cleaner(
-        file(pkg_resources.resource_filename(
+        open(pkg_resources.resource_filename(
                 'cc.licenserdf', rdf_file)).read())
     assert_equal(response.headers['Content-Type'], RDF_HEADER)
     assert_equal(response.unicode_body, rdf_file_contents)
@@ -171,7 +171,7 @@ def test_rdf_views():
 
 
 VIEWS_TEST_DATA = json.load(
-    file(pkg_resources.resource_filename(
+    open(pkg_resources.resource_filename(
             'cc.engine.tests', 'view_tests.json')))
 
 
@@ -900,61 +900,65 @@ def test_deed_w3_validation():
     Tests to see if the deeds pass the w3c validator.
     """
 
-    #FIXME: The licenses do not currently validate!!!
     paths = [
-        #"/licenses/by/4.0/",
-        #"/licenses/by-sa/4.0/",
-        #"/licenses/by-nc/4.0/",
-        #"/licenses/by-nc-sa/4.0/",
-        #"/licenses/by-nc-nd/4.0/",
-        #"/licenses/by-nd/4.0/",
+        "/licenses/by/4.0/",
+        "/licenses/by-sa/4.0/",
+        "/licenses/by-nc/4.0/",
+        "/licenses/by-nc-sa/4.0/",
+        "/licenses/by-nc-nd/4.0/",
+        "/licenses/by-nd/4.0/",
         "/publicdomain/zero/1.0/",
         "/publicdomain/mark/1.0/",
         ]
     temp_dir = tempfile.mkdtemp()
     failures = []
 
+    import logging
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+
     try:
         print("\n")
         for path in paths:
             view_result = TESTAPP.get(path).unicode_body.encode('utf-8')
             temp_path = os.path.join(temp_dir, "validate_me.html")
-            storage = file(temp_path, mode="w+b")
+            storage = open(temp_path, mode="w+b")
             storage.write(view_result)
             storage.close()
 
-            register_openers()
-            data, headers = multipart_encode({
-                    "uploaded_file" : open(temp_path),
-                    "charset" : "(detect automatically)",
-                    "doctype" : "Inline",
-                    "group" : 0,
-                    })
-            req = urllib.request.Request("http://validator.w3.org/check",
-                                  data, headers)
+            multipart_form_data = {
+                "file": (
+                    "validate_me.html",
+                    open(temp_path, 'rb'),
+                    'text/html',
+                    {'Expires': '0'}
+                )
+            }
+            req = requests.post("http://validator.w3.org/nu",
+                                files=multipart_form_data)
             try:
-                raw = urllib.request.urlopen(req).read()
+                req.raise_for_status()
+                raw = req.content
             except urllib.error.HTTPError:
                 print("(proxy error... waiting 30 seconds before retry...)")
                 import time; time.sleep(30)
-                raw = urllib.request.urlopen(req).read()
+                raw = req.content
             html = lxml_html.fromstring(raw)
-            result = html.get_element_by_id("result")
-            if result.findall("h3")[0].text == "Congratulations":
+            passes = html.findall('.//p[@class="success"]')
+            if len(passes) > 0:
                 print("\n==>", path, "passes the w3c validator :D\n")
                 continue
             else:
                 print("\n==>", path, "fails the w3c validator:\n")
-                errors = html.get_element_by_id("error_loop").findall("*")
-                error_count = len(errors)
-                failures.append((path, error_count))
-                for error in errors:
-                    text = [i.text for i in error.findall("*") if i.text]
+                fails = html.findall('.//p[@class="failure"]')
+                failures.append((path, len(fails)))
+                for fail in fails:
+                    text = [i.text for i in fail.findall("*") if i.text]
                     info = list(map(str.strip, text.pop(0).split("\n")))
                     info = "".join(info).split(",")
                     info.append("".join(text).strip())
                     print(" {0} {1}\n   {2}\n".format(*info))
                 #import pdb; pdb.set_trace()
+
     except:
         # clean up tempfiles before raising an error
         shutil.rmtree(temp_dir)

@@ -53,11 +53,12 @@ setup(
         'sphinx',
         'webtest',
         'wsgi_cache',
-        'flup==1.0.2',
+        'flup',
         'simplejson',
+        # For tests
         'cssselect',
-        'poster', # for validation tests
-        'lxml', # also for tests
+        'lxml',
+        'request',
         # Requirements of requirements
         'pyparsing', # required by rdflib
         'isodate', # required by rdflib
