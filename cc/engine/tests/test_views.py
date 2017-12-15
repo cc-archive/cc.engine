@@ -910,31 +910,35 @@ def test_deed_w3_validation():
         "/publicdomain/zero/1.0/",
         "/publicdomain/mark/1.0/",
         ]
-    temp_dir = tempfile.mkdtemp()
+    #temp_dir = tempfile.mkdtemp()
     failures = []
 
     import logging
     logging.getLogger("urllib3").setLevel(logging.WARNING)
-
+    
     try:
         print("\n")
         for path in paths:
-            view_result = TESTAPP.get(path).unicode_body.encode('utf-8')
-            temp_path = os.path.join(temp_dir, "validate_me.html")
-            storage = open(temp_path, mode="w+b")
-            storage.write(view_result)
-            storage.close()
+            view_result = TESTAPP.get(path).body
+            # I can't stop files in requests on Python3 giving spurious errors
+            # in validation. Inlining the text is naughty but works. - RobM.
+            #temp_path = os.path.join(temp_dir, "validate_me.html")
+            #storage = open(temp_path, mode="w+b")
+            #storage.write(view_result)
+            #storage.close()
 
             multipart_form_data = {
-                "file": (
-                    "validate_me.html",
-                    open(temp_path, 'rb'),
-                    'text/html',
-                    {'Expires': '0'}
-                )
+                "charset" : "(detect automatically)",
+                "doctype" : "Inline",
+                "group" : 0,
+                "fragment": view_result
             }
-            req = requests.post("http://validator.w3.org/nu",
-                                files=multipart_form_data)
+            multipart_form_files = {
+                #"upload_file": open(temp_path, 'rb')
+            }
+            req = requests.post("https://validator.w3.org/check",
+                                data=multipart_form_data,
+                                files=multipart_form_files)
             try:
                 req.raise_for_status()
                 raw = req.content
@@ -943,17 +947,17 @@ def test_deed_w3_validation():
                 import time; time.sleep(30)
                 raw = req.content
             html = lxml_html.fromstring(raw)
-            passes = html.findall('.//p[@class="success"]')
-            if len(passes) > 0:
+            congrats = html.find('.//h3[@id="congrats"]')
+            if congrats != None:
                 print("\n==>", path, "passes the w3c validator :D\n")
-                continue
             else:
                 print("\n==>", path, "fails the w3c validator:\n")
-                fails = html.findall('.//p[@class="failure"]')
-                failures.append((path, len(fails)))
-                for fail in fails:
-                    text = [i.text for i in fail.findall("*") if i.text]
-                    info = list(map(str.strip, text.pop(0).split("\n")))
+                errors = html.findall('.//li[@class="msg_err"]')
+                error_count = len(errors)
+                failures.append((path, error_count))
+                for error in errors:
+                    text = [i.text for i in error.findall("*") if i.text]
+                    info = map(str.strip, text.pop(0).split("\n"))
                     info = "".join(info).split(",")
                     info.append("".join(text).strip())
                     print(" {0} {1}\n   {2}\n".format(*info))
@@ -961,7 +965,7 @@ def test_deed_w3_validation():
 
     except:
         # clean up tempfiles before raising an error
-        shutil.rmtree(temp_dir)
+        #shutil.rmtree(temp_dir)
         raise
 
     assert not failures
