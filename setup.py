@@ -53,7 +53,7 @@ setup(
         'sphinx',
         'webtest',
         'wsgi_cache',
-        'flup',
+        'flup6',
         'simplejson',
         # For tests
         'cssselect',
