@@ -149,8 +149,9 @@ RDF_HEADER = 'application/rdf+xml; charset=UTF-8'
 def _rdf_tester(url, rdf_file):
     response = TESTAPP.get(url)
     rdf_file_contents = util.unicode_cleaner(
-        open(pkg_resources.resource_filename(
-                'cc.licenserdf', rdf_file)).read())
+        open(pkg_resources.resource_filename('cc.licenserdf',
+                                             rdf_file),
+             encoding='utf-8').read())
     assert_equal(response.headers['Content-Type'], RDF_HEADER)
     assert_equal(response.unicode_body, rdf_file_contents)
 
@@ -172,7 +173,7 @@ def test_rdf_views():
 
 VIEWS_TEST_DATA = json.load(
     open(pkg_resources.resource_filename(
-            'cc.engine.tests', 'view_tests.json')))
+            'cc.engine.tests', 'view_tests.json'), encoding='utf-8'))
 
 
 def test_license_to_choose_redirect():
@@ -915,7 +916,7 @@ def test_deed_w3_validation():
 
     import logging
     logging.getLogger("urllib3").setLevel(logging.WARNING)
-    
+
     try:
         print("\n")
         for path in paths:

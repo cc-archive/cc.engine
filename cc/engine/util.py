@@ -188,7 +188,7 @@ def get_locale_identity_data(locale):
     if not locale_filename:
         return {}
 
-    locale_tree = etree.parse(open(locale_filename))
+    locale_tree = etree.parse(open(locale_filename, encoding='utf-8'))
     identity_data = {}
     identity_data['language'] = _get_xpath_attribute(
         locale_tree, '/ldml/identity/language', 'type')
@@ -211,7 +211,7 @@ def get_locale_text_orientation(locale):
     if not locale_filename:
         return u'ltr'
 
-    locale_tree = etree.parse(open(locale_filename))
+    locale_tree = etree.parse(open(locale_filename, encoding='utf-8'))
     try:
         char_orientation = locale_tree.xpath(
             '/ldml/layout/orientation')[0].attrib['characters']

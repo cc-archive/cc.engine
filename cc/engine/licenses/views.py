@@ -181,7 +181,8 @@ def license_deed_view(request):
 
 @get_license
 def license_rdf_view(request, license):
-    rdf_response = Response(open(license_rdf_filename(license.uri)).read())
+    rdf_response = Response(open(license_rdf_filename(license.uri),
+                                 encoding='utf-8').read())
     rdf_response.headers['Content-Type'] = 'application/rdf+xml; charset=UTF-8'
     return rdf_response
 
