@@ -9,6 +9,7 @@ import pkg_resources
 import string
 import smtplib
 import urllib.request, urllib.parse, urllib.error
+import pkg_resources  # part of setuptools
 
 import sys
 if (sys.version_info > (3, 0)):
@@ -133,6 +134,7 @@ def render_template(request, locale, template_path, context):
     context['locale'] = locale
     if not 'gettext' in context:
        context['gettext'] = ugettext_for_locale(locale)
+    context['cc_engine_version'] = pkg_resources.require("cc.engine")[0].version
 
     rendered = template.render(context)
 
