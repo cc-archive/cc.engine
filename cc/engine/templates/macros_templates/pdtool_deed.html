@@ -16,20 +16,15 @@
 
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="{{ request.staticdirect('includes/yahooapis/2.6.0/container.css') }}" />
-
-    <link rel="stylesheet"
-          href="{{ request.staticdirect('includes/deed3.css') }}" />
-    {% if is_rtl %}
-      <link rel="stylesheet" type="text/css" media="screen" 
-            href="{{ request.staticdirect('includes/deed3-rtl.css') }}" />
-    {% endif %}
-    <link rel="stylesheet" type="text/css"
-          href="{{ request.staticdirect('includes/deed3-print.css') }}"
-          media="print" /> 
-    <link rel="stylesheet" type="text/css"
-          href="{{ request.staticdirect('includes/jurisdictions.css') }}"
-          media="screen" /> 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' id='cc-google-fonts-css' href='//fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C600%2C700%7CRoboto+Condensed' type='text/css' media='all' />
+    <link rel='stylesheet' id='cc-fontello-css' href="/wp-content/themes/cc/fonts/fontello/css/cc-fontello.css" type='text/css' media='all' />
+    <link rel="stylesheet" id="twentysixteen-jetpack-css" href="/wp-content/plugins/jetpack/modules/theme-tools/compat/twentysixteen.css" type="text/css" media="all">
+    <link rel='stylesheet' id='parent-style-css' href="/wp-content/themes/twentysixteen/style.css" type='text/css' media='all'/>
+    <link rel='stylesheet' id='cc-style-css' href="/wp-content/themes/cc/css/app.css" type='text/css' media='all' />
+    <link rel="stylesheet" type="text/css" href="{{ request.staticdirect('includes/deed4.css') }}" media="screen" />
+    <link rel="stylesheet" type="text/css" media="print" href="{{ request.staticdirect('includes/deed4-print.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ request.staticdirect('includes/jurisdictions.css') }}" media="screen" />
 
     <!--[if lt IE 7]>
     <link rel="stylesheet" type="text/css" media="screen"
@@ -40,72 +35,99 @@
 
     {% include "includes/language_javascript.html" %}
 
-    <script type="text/javascript"
-            src="{{ request.staticdirect('includes/yahooapis/2.6.0/yahoo-dom-event.js') }}">
-    </script>
-    <script type="text/javascript"
-            src="{{ request.staticdirect('includes/yahooapis/2.6.0/connection-min.js') }}">
-    </script>
-    <script type="text/javascript"
-            src="{{ request.staticdirect('includes/yahooapis/2.6.0/json-min.js') }}">
-    </script>
-
-    <script type="text/javascript"
-            src="https://scraper.creativecommons.org/js/pddeed.js">
-    </script>
-
-    <script type="text/javascript"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//scraper.creativecommons.org/js/deed.js"></script>    <script type="text/javascript"
             src="{{ request.staticdirect('includes/help.js') }}">
-    </script>
-
-    <script type="text/javascript"
-            src="{{ request.staticdirect('includes/yahooapis/2.6.0/container-min.js') }}">
     </script>
 
     {% block headers %}{% endblock %}
   </head>
 
-  <body typeof="cc:License"
+  {# Translators: Change hide-banner to an empty string to show the complete site header and footer #}  <body typeof="cc:License"
         about="{{ license.uri }}"
-        class="yui-skin-sam">
+        class="license {{ get_ltr_rtl }} {% if target_lang != 'en' %}{% trans %}hide-banner{% endtrans %}{% endif %}">
     {% block page_top %}{% endblock %}
+    <div id="page" class="site">
+      <div class="site-inner">
+        <a class="skip-link screen-reader-text" href="#content">{% trans %}Skip to content{% endtrans %}</a>
 
-    <div id="deed" class="pd pd-grey"
-         dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}">
-      <div id="deed-head">
-        <div id="cc-logo">
-          <img src="{{ request.staticdirect('images/deed/cc-logo.jpg') }}"
-               alt="cc logo" />
-        </div>
-        <div id="deed-license">
-          <h2>
-            {%- block license_name %}{% endblock -%}
-          </h2>
-        </div>
-      </div>
+        {% include "includes/cc_site_header.html" %}
+        <div id="content" class="site-content">
+          <div id="primary" class="content-area">
+            <main id="main" class="site-main container" role="main">
+              <div id="deed" class="row" dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}">
+                <div id="deed-head" class="row">
+                  <div class="print-only icon cc-logo-print">
+                    <img alt="cc logo" src="/images/deed/cc-logo.jpg" />
+                  </div>
+                  <div id="cc-link">
+                    <a rel="dc:creator dct:creator" href="/">
+                      <span property="dc:title dct:title">Creative Commons</span>
+                    </a>
+                  </div>
+                  <h1><span>{% trans %}Creative Commons License Deed{% endtrans %}</span></h1>
 
-      <div id="deed-main" dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}">
-        <div id="legalcode-block">
-          {% block legalcode_block %}{% endblock %}
+                  <div id="deed-license">
+                    <h2>
+                      <span class="cc-license-icons">
+                        <span id="cc-logo" class="icon"><img alt="cc logo" src="/images/deed/cc_icon_white_x2.png"></span>
+                        <span id="cc-logo" class="icon"><img alt="cc pd" src="/images/deed/pd_white_x2.png"></span>
+                        {% if conditions['by'] %}<span id="cc-attribution" class="icon"><img src="/images/deed/attribution_icon_white_x2.png"></span>{% endif %}
+                        {% if conditions['nc'] %}<span id="cc-icon-nc" class="icon"><img src="/images/deed/nc_white_x2.png"></span>{% endif %}
+                        {% if conditions['nd'] %}<span id="cc-icon-nd" class="icon"><img src="/images/deed/nd_white_x2.png"></span>{% endif %}
+                        {% if conditions['sa'] %}<span id="cc-icon-sa" class="icon"><img src="/images/deed/sa_white_x2.png"></span>{% endif %}
+                      </span>
+
+                      {%- block license_name %}{% endblock -%}
+                    </h2>
+                  </div>
+                </div>
+
+                <div id="deed-main" dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}" class="row">
+                  <div id="legalcode-block">
+                    {% block legalcode_block %}{% endblock %}
+                  </div>
+
+                  <div id="deed-main-content" class="row {{ license.jurisdiction.code }}">
+                    {% block body %}{% endblock %}
+                  </div>
+                </div>
+                <div class="row" id="footer">
+                  {% if not license.deprecated %}
+                    <p class="learn-more-cc">
+                      {% block use_this_license %}{% endblock %}
+                    </p>
+                  {% endif %}
+                  {% include "includes/translations.html" %}
+                </div>
+
+                <div id="deed-foot">
+                  {% block footer %}{% endblock %}
+                </div>
+              </div>
+            </main>
+          </div>
         </div>
 
-        <div id="deed-main-content"
-             class="{{ license.jurisdiction.code }}">
-          {% block body %}{% endblock %}
-        </div>
-      </div>
-      <div id="deed-foot">
-        {% block footer %}{% endblock %}
+        {% include "includes/cc_site_footer.html" %}
       </div>
     </div>
-    <div id="footer">
-      <p>
-        {% if not license.deprecated %}
-          {% block use_this_license %}{% endblock %}
-        {% endif %}
-      </p>
-      {% include "includes/translations.html" %}
-    </div>
+
+    <script type='text/javascript' src='/wp-content/themes/cc/js/cc.js'></script>
+    <script type='text/javascript' src='/wp-content/plugins/cc-donate/js/cc-donate.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/cc/js/breakpoint-body-class.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/cc/js/sticky-nav.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/cc/js/toggle-search.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/cc/js/donation.js'></script>
+    <script type='text/javascript' src='/wp-content/themes/twentysixteen/js/skip-link-focus-fix.js'></script>
+    <script type='text/javascript'>
+      /* <![CDATA[ */
+      var screenReaderText = {"expand":"{% trans %}expand child menu{% endtrans %}","collapse":"{% trans %}collapse child menu{% endtrans %}"};
+      /* ]]> */
+    </script>
+    <script type='text/javascript' src='/wp-content/themes/twentysixteen/js/functions.js'></script>
 
     <script type="text/javascript">
       //<![CDATA[
@@ -118,11 +140,6 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-//]]>
-    </script>
-    <script type="text/javascript">
-      //<![CDATA[
-      document.write("<" + "script type='text/javascript' src='https://scraper.creativecommons.org/apps/pddeed?url=" + encodeURIComponent(document.referrer) + "&license_uri=" + encodeURIComponent(document.URL) + "&callback=YAHOO.cc.success'" + "><" + "/script>");
 //]]>
     </script>
   </body>
