@@ -74,10 +74,6 @@
                       <span class="cc-license-icons">
                         <span id="cc-logo" class="icon"><img alt="cc logo" src="/images/deed/cc_icon_white_x2.png"></span>
                         <span id="cc-logo" class="icon"><img alt="cc pd" src="/images/deed/pd_white_x2.png"></span>
-                        {% if conditions['by'] %}<span id="cc-attribution" class="icon"><img src="/images/deed/attribution_icon_white_x2.png"></span>{% endif %}
-                        {% if conditions['nc'] %}<span id="cc-icon-nc" class="icon"><img src="/images/deed/nc_white_x2.png"></span>{% endif %}
-                        {% if conditions['nd'] %}<span id="cc-icon-nd" class="icon"><img src="/images/deed/nd_white_x2.png"></span>{% endif %}
-                        {% if conditions['sa'] %}<span id="cc-icon-sa" class="icon"><img src="/images/deed/sa_white_x2.png"></span>{% endif %}
                       </span>
 
                       {%- block license_name %}{% endblock -%}
@@ -142,5 +138,34 @@
       })();
 //]]>
     </script>
+
+    <script type="text/javascript">
+      //<![CDATA[
+      $(document).ready(function() {
+        $('#deed .helpLink').each(function(index, helpLinkElem) {
+          var helpId = $(helpLinkElem).attr('id');
+          var popupId = helpId ? 'help_' + helpId : undefined;
+          if (popupId) {
+            var popupElem = $('#'+popupId);
+            var popupTitleHtml = $('.hd', popupElem).html();
+            var popupBodyHtml = $('.bd', popupElem).html();
+            $(helpLinkElem).popover({
+              placement: 'auto top',
+              viewport: '#deed',
+              trigger: 'focus',
+              title: popupTitleHtml ? popupTitleHtml : undefined,
+              content: popupBodyHtml ? popupBodyHtml : undefined,
+              html: true
+            });
+          }
+        });
+
+        $('.helpLink').on('click', function(e) {
+          e.preventDefault();
+        });
+      });
+      //]]>
+    </script>
+
   </body>
 </html>
