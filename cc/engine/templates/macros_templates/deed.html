@@ -38,7 +38,6 @@ xmlns:frbr="http://purl.org/vocab/frbr/core#" xml:lang="{{ target_lang }}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="//scraper.creativecommons.org/js/deed.js"></script>
 
   {% block headers %}{% endblock %}
 
@@ -277,11 +276,6 @@ xmlns:frbr="http://purl.org/vocab/frbr/core#" xml:lang="{{ target_lang }}">
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
-    //]]>
-  </script>
-  <script type="text/javascript">
-    //<![CDATA[
-    document.write("<" + "script type='text/javascript' src='//scraper.creativecommons.org/apps/deed?url=" + encodeURIComponent(document.referrer) + "&amp;license_uri=" + encodeURIComponent(document.URL) + "&amp;callback=YAHOO.cc.success'" + "><" + "/script>");
     //]]>
   </script>
 
