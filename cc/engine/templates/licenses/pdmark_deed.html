@@ -183,20 +183,25 @@
 {% endblock body %}
 
 {% block footer %}
-  <a href="" id="disclaimer"
-     class="helpLink">{% trans %}Disclaimer{% endtrans %}</a>
   <div id="cc-link">
     <a rel="dc:creator dct:creator" href="https://creativecommons.org/">
       <span property="dc:title dct:title">{% trans %}Creative Commons{% endtrans %}</span>
     </a>
   </div>
-  <div id="help_disclaimer" style="text-align:left" class="help_panel">
+{% endblock footer %}
+
+{% block disclaimer %}
+<div class="row">
+  <a href="" id="disclaimer"
+     class="helpLink">{% trans %}Disclaimer{% endtrans %}</a>
+  <div id="help_disclaimer" class="help_panel">
     <div class="hd">{% trans %}Disclaimer{% endtrans %}</div>
     <div class="bd">
       {% trans %}<p> The Public Domain Mark is not a legal instrument. </p> <p> Creative Commons is not a law firm and does not provide legal services or advice. Distributing, displaying, or linking to this Public Domain Mark does not create an attorney-client relationship. </p> <p> Creative Commons has not verified the copyright status of any work to which this mark has been applied. CC makes no warranties about any work or its copyright status in any jurisdiction, and disclaims all liability for all uses of any work. </p>{% endtrans %}
     </div>
   </div>
-{% endblock footer %}
+</div>
+{% endblock disclaimer %}
 
 {% block use_this_license %}
   {% trans %}
