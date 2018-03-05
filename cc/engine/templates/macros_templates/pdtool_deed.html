@@ -82,11 +82,7 @@
 
                   <div id="deed-license">
                     <h2>
-                      <span class="cc-license-icons">
-                        <span id="cc-logo" class="icon"><img alt="cc logo" src="/images/deed/cc_icon_white_x2.png"></span>
-                        <span id="cc-logo" class="icon"><img alt="cc pd" src="/images/deed/pd_white_x2.png"></span>
-                      </span>
-
+                      {% block license_logos %}{% endblock %}
                       {%- block license_name %}{% endblock -%}
                     </h2>
                   </div>

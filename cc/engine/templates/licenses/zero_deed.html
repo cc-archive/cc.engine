@@ -7,11 +7,9 @@
 {% endblock %}
 
 {% block license_name %}
-  <span property="dc:title dct:title"
-        style="display:inline !important;">{{ license_title }}</span>
+  <span property="dc:title dct:title" style="display:inline !important;">{{ license_title }}</span>
+  (<span property="dc:identifier dct:identifier" style="display:inline !important;">CC0 1.0</span>)<br>
   {% trans %}Public Domain Dedication{% endtrans %}
-  (<span property="dc:identifier dct:identifier"
-       style="display:inline !important;">CC0 1.0</span>)
 {% endblock %}
 
 {% block body %}
@@ -197,3 +195,10 @@
         <a href="http://wiki.creativecommons.org/FAQ">Learn more</a> about CC licensing, or <a id="get_this" href="{{ get_this }}">use the license</a> for your own material.
   {% endtrans %}
 {% endblock use_this_license %}
+
+{% block license_logos %}
+<span class="cc-license-icons">
+  <span id="cc-logo" class="icon"><img alt="cc logo" src="/images/deed/cc_icon_white_x2.png"></span>
+  <span class="icon"><img alt="cc pd" src="/images/deed/zero_white_x2.png"></span>
+</span>
+{% endblock license_logos %}
