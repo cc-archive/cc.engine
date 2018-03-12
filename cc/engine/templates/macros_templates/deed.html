@@ -73,6 +73,8 @@ xmlns:frbr="http://purl.org/vocab/frbr/core#" xml:lang="{{ target_lang }}">
           </section>
         </aside>
 
+        {% include "includes/language_selector.html" %}
+
         <div id="primary" class="content-area">
           <main id="main" class="site-main container" role="main">
             <div id="deed" class="row" dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}">
@@ -324,5 +326,6 @@ xmlns:frbr="http://purl.org/vocab/frbr/core#" xml:lang="{{ target_lang }}">
   </script>
   <noscript><p><img src="//stats.creativecommons.org/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
   <!-- End Piwik Code -->
+  <script type="text/javascript" src="/includes/language-selector.js"></script>
 </body>
 </html>
