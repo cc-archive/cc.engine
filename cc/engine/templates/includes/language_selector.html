@@ -4,6 +4,8 @@
       {% trans %}This page is available in the following languages:{% endtrans %}
     </span>
 
+    <img class="language-icon" src="/images/language_icon_x2.png" alt="Languages" />
+
     <select>
       {% for lang in active_languages %}
       <option value="{{ lang.code}}"{% if target_lang == lang.code %} selected="selected"{% endif %}>
