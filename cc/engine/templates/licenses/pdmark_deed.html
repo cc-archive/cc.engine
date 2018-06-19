@@ -12,13 +12,43 @@
 
 {% block body %}
   <div id="deed-rights"
-       dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}">
-    <h3>{% trans %}No Copyright{% endtrans %}</h3>
-    <ul class="license-properties" style="width: 550px;">
-      <li class="license publicdomain">
-        {% trans %}<p id="nolaw-text"> This work has been <b>identified</b> as being free of known restrictions under copyright law, including all related and neighboring rights. </p> <p> <br /> You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See <b>Other Information</b> below. </p>{% endtrans %}
-      </li>
+       dir="{{ get_ltr_rtl }}" style="{{ is_rtl_align }}" class="row">
 
+    <div class="col-sm-offset-2 col-sm-8">
+      <h3 style="text-align: center">{% trans %}No Copyright{% endtrans %}</h3>
+      <ul class="license-properties">
+        <li class="license publicdomain">
+          {% trans %}<p id="nolaw-text"> This work has been <b>identified</b> as being free of known restrictions under copyright law, including all related and neighboring rights. </p> <p> <br /> You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. See <b>Other Information</b> below. </p>{% endtrans %}
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-10 col-sm-offset-1">
+      <hr>
+    </div>
+
+    <div class="col-sm-offset-2 col-sm-8">
+      <h3 style="text-align: center">{% trans %}Other Information{% endtrans %}</h3>
+      <ul class="license-properties">
+        <li>
+          {% trans %}The work may not be free of known copyright restrictions in all <a href="" class="helpLink" id="all_jurisdictions">jurisdictions</a>.{% endtrans %}
+        </li>
+        <li>
+          {% trans %}Persons may have other rights in or related to the work, such as patent or trademark rights, and others may have rights in how the work is used, such as <a href="https://wiki.creativecommons.org/Frequently_Asked_Questions#When_are_publicity_rights_relevant" class="helpLink" id="publicity_rights">publicity or privacy</a> rights.{% endtrans %}
+        </li>
+        <li>
+          {% trans %}In some jurisdictions <a href="" class="helpLink" id="moral_rights">moral rights</a> of the author may persist beyond the term of copyright. These rights may include the right to be identified as the author and the right to object to derogatory treatments.{% endtrans %}
+        </li>
+        <li>
+          {% trans %}Unless expressly stated otherwise, the person who identified the work makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.{% endtrans %}
+        </li>
+        <li>
+          {% trans %}When using or citing the work, you should not imply <a href="" class="helpLink" id="endorsement">endorsement</a> by the author or the person who identified the work.{% endtrans %}
+        </li>
+      </ul>
+    </div>
+
+    <ul class="license-properties">
       <li class="license" style="display:none" id="work-details-block">
         <div>
           <ul>
@@ -68,29 +98,7 @@
 
     </ul>
   </div>
-  <div id="deed-understanding">
-    <ul class="license-properties">
-      <li class="license">
-        <strong>{% trans %}Other Information{% endtrans %}</strong>
-        <ul>
-          <li>
-            {% trans %}The work may not be free of known copyright restrictions in all <a href="" class="helpLink" id="all_jurisdictions">jurisdictions</a>.{% endtrans %}
-          </li>
-          <li>
-            {% trans %}Persons may have other rights in or related to the work, such as patent or trademark rights, and others may have rights in how the work is used, such as <a href="https://wiki.creativecommons.org/Frequently_Asked_Questions#When_are_publicity_rights_relevant" class="helpLink" id="publicity_rights">publicity or privacy</a> rights.{% endtrans %}
-          </li>
-          <li>
-            {% trans %}In some jurisdictions <a href="" class="helpLink" id="moral_rights">moral rights</a> of the author may persist beyond the term of copyright. These rights may include the right to be identified as the author and the right to object to derogatory treatments.{% endtrans %}
-          </li>
-          <li>
-            {% trans %}Unless expressly stated otherwise, the person who identified the work makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law.{% endtrans %}
-          </li>
-          <li>
-            {% trans %}When using or citing the work, you should not imply <a href="" class="helpLink" id="endorsement">endorsement</a> by the author or the person who identified the work.{% endtrans %}
-          </li>
-        </ul>
-      </li>
-    </ul>
+  <div id="deed-understanding" style="display: none">
     <!-- <div id="help_usage_guidelines">
          <div class="hd">
            Non-binding Usage Guidelines
@@ -175,21 +183,31 @@
 {% endblock body %}
 
 {% block footer %}
-  <a href="" id="disclaimer"
-     class="helpLink">{% trans %}Disclaimer{% endtrans %}</a>
   <div id="cc-link">
     <a rel="dc:creator dct:creator" href="https://creativecommons.org/">
       <span property="dc:title dct:title">{% trans %}Creative Commons{% endtrans %}</span>
     </a>
   </div>
-  <div id="help_disclaimer" style="text-align:left" class="help_panel">
+{% endblock footer %}
+
+{% block disclaimer %}
+<div class="row">
+  <a href="" id="disclaimer"
+     class="helpLink">{% trans %}Disclaimer{% endtrans %}</a>
+  <div id="help_disclaimer" class="help_panel">
     <div class="hd">{% trans %}Disclaimer{% endtrans %}</div>
     <div class="bd">
       {% trans %}<p> The Public Domain Mark is not a legal instrument. </p> <p> Creative Commons is not a law firm and does not provide legal services or advice. Distributing, displaying, or linking to this Public Domain Mark does not create an attorney-client relationship. </p> <p> Creative Commons has not verified the copyright status of any work to which this mark has been applied. CC makes no warranties about any work or its copyright status in any jurisdiction, and disclaims all liability for all uses of any work. </p>{% endtrans %}
     </div>
   </div>
-{% endblock footer %}
+</div>
+{% endblock disclaimer %}
 
 {% block use_this_license %}
-  <a id="get_this" href="/publicdomain/">{% trans %}Use this tool to mark other public domain works.{% endtrans %}</a>
+  {% trans %}
+        <a href="http://wiki.creativecommons.org/FAQ">Learn more</a> about CC licensing, or <a id="get_this" href="{{ get_this }}">use the license</a> for your own material.
+  {% endtrans %}
 {% endblock use_this_license %}
+
+{% block license_logos %}
+{% endblock license_logos %}
