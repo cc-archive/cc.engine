@@ -6,26 +6,26 @@ cc.engine
 :Version: $LastChangedRevision: 4737 $
 :Author: Nathan R. Yergler <nathan@creativecommons.org>
 :Organization: `Creative Commons <http://creativecommons.org>`_
-:Copyright: 
-   2007, Nathan R. Yergler, Creative Commons; 
-   licensed to the public under the `MIT license 
+:Copyright:
+   2007, Nathan R. Yergler, Creative Commons;
+   licensed to the public under the `MIT license
    <http://opensource.org/licenses/mit-license.php>`_.
 
 
 cc.engine provides the Creative Commons license engine along with a set of
-related scripts.  The scripts can be used for generating static versions of
+related scripts. The scripts can be used for generating static versions of
 the license deeds.
 
 
 Installation
 ============
 
-NOTE: Unless you are installing this in ``Development Mode'', you will need to
-run ./bin/buildout as root, because the script needs to create directories in
-/etc and /var.
+NOTE: Unless you are installing this in ``Development Mode``, you will need to
+run ``sudo ./bin/buildout`` (with root privileges), because the script needs to
+create directories in ``/etc`` and ``/var``.
 
-cc.engine uses `zc.buildout <http://python.org/pypi/zc.buildout>`_ to 
-assemble the software and its dependencies.  For example ::
+cc.engine uses `zc.buildout <http://python.org/pypi/zc.buildout>`_ to
+assemble the software and its dependencies. For example ::
 
   $ python bootstrap/bootstrap.py
   $ ./bin/buildout
@@ -70,10 +70,10 @@ Building lxml + Dependencies
 ----------------------------
 
 cc.engine relies of `lxml <http://codespeak.net/lxml>`_, which is a Python
-wrapper for libxml2 and libxslt1.  If you system has older versions of these
-libraries installed, cc.engine may fail with ``Unknown symbol`` errors.  A
-specialized buildout configuration is provided to download and build a 
-local version of libxml2, libxslt1 and lxml if needed.  To use this, specify
+wrapper for libxml2 and libxslt1. If you system has older versions of these
+libraries installed, cc.engine may fail with ``Unknown symbol`` errors. A
+specialized buildout configuration is provided to download and build a
+local version of libxml2, libxslt1 and lxml if needed. To use this, specify
 the configuration on the command line ::
 
   $ ./bin/buildout -c lxml.buildout.cfg
@@ -85,12 +85,9 @@ Scripts
 =======
 
 In order to improve performance, cc.engine provides scripts which may be used
-to generate static versions of the license.  The script, ``mkdeeds``, is built
+to generate static versions of the license. The script, ``mkdeeds``, is built
 as part of the buildout process.  Run ::
 
   $ ./bin/mkdeeds -h
 
 for a complete list of options and parameters.
-
-
-
