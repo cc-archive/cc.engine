@@ -91,3 +91,11 @@ as part of the buildout process.  Run ::
   $ ./bin/mkdeeds -h
 
 for a complete list of options and parameters.
+
+
+Additional Documentation
+========================
+
+* `docs/source/tech_overview.rst <docs/source/tech_overview.rst>`_
+* `docs/source/orverarching_infrastructure.rst <docs/source/orverarching_infrastructure.rst>`_
+* `docs/source/history.rst <docs/source/history.rst>`_
