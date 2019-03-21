@@ -8,8 +8,8 @@ cc.engine
 :Organization: `Creative Commons <http://creativecommons.org>`_
 :Copyright:
    2007, Nathan R. Yergler, Creative Commons;
-   licensed to the public under the `MIT license
-   <http://opensource.org/licenses/mit-license.php>`_.
+   licensed to the public under the Expat/`MIT
+   <http://www.opensource.org/licenses/MIT>`_ License.
 
 
 cc.engine provides the Creative Commons license engine along with a set of
