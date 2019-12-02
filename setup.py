@@ -36,10 +36,10 @@ setup(
         'cc.i18n',
         'cc.license',
         'cc.licenserdf',
-        'flup==1.0.2',
+        'flup',
         'jinja2',
         'poster',   # for validation tests
-        'rdflib<3.0',
+        'rdflib',
         'routes',
         'setuptools',
         'simplejson',
