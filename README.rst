@@ -81,18 +81,6 @@ the configuration on the command line ::
 Note that this builds in production mode.
 
 
-Scripts
-=======
-
-In order to improve performance, cc.engine provides scripts which may be used
-to generate static versions of the license. The script, ``mkdeeds``, is built
-as part of the buildout process.  Run ::
-
-  $ ./bin/mkdeeds -h
-
-for a complete list of options and parameters.
-
-
 Additional Documentation
 ========================
 
