@@ -32,21 +32,21 @@ setup(
 
     # scripts and dependencies
     install_requires=[
-        'rdflib<3.0',
-        'setuptools',
-        'cc.licenserdf',
-        'cc.license',
-        'cc.i18n',
         'PasteScript',
-        'webob',
-        'routes',
-        'sphinx',
-        'webtest',
-        'wsgi_cache',
+        'cc.i18n',
+        'cc.license',
+        'cc.licenserdf',
         'flup==1.0.2',
-        'simplejson',
         'jinja2',
         'poster',   # for validation tests
+        'rdflib<3.0',
+        'routes',
+        'setuptools',
+        'simplejson',
+        'sphinx',
+        'webob',
+        'webtest',
+        'wsgi_cache',
         ],
 
     dependency_links=[
