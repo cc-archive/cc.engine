@@ -46,7 +46,8 @@ setup(
         'sphinx',
         'webob',
         'webtest',
-        'wsgi_cache'],
+        'wsgi_cache',
+        ],
 
     dependency_links=[
         'https://github.com/creativecommons/cc.i18n/tarball/'
@@ -54,7 +55,8 @@ setup(
         'https://github.com/creativecommons/cc.license/tarball/'
         'master#egg=cc.license',
         'https://github.com/creativecommons/cc.licenserdf/tarball/'
-        'master#egg=cc.licenserdf'],
+        'master#egg=cc.licenserdf',
+        ],
 
     # author metadata
     author='Christopher Webber',
@@ -63,8 +65,8 @@ setup(
     license='MIT',
     url='http://creativecommons.org',
     entry_points="""\
-      [paste.app_factory]
-      ccengine_app = cc.engine.app:ccengine_app_factory
-      static_app = cc.engine.staticdirect:static_app_factory
-      """
+        [paste.app_factory]
+        ccengine_app = cc.engine.app:ccengine_app_factory
+        static_app = cc.engine.staticdirect:static_app_factory
+        """
     )
