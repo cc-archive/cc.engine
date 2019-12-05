@@ -12,13 +12,11 @@ Contents:
    :maxdepth: 2
 
    tech_overview
+   history
+   overarching_infrastructure
 
-   
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
-

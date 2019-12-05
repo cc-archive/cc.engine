@@ -97,5 +97,5 @@ Additional Documentation
 ========================
 
 * `docs/source/tech_overview.rst <docs/source/tech_overview.rst>`_
-* `docs/source/orverarching_infrastructure.rst <docs/source/orverarching_infrastructure.rst>`_
+* `docs/source/overarching_infrastructure.rst <docs/source/overarching_infrastructure.rst>`_
 * `docs/source/history.rst <docs/source/history.rst>`_
