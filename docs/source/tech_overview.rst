@@ -239,15 +239,14 @@ thoroughness, here is part of the config file::
 
   [... cut off here ...]
 
-(Note that this may make more sense if you read the `Paste Deploy
-<http://pythonpaste.org/deploy/>`_ documentation.)
+(Note that this may make more sense if you read the `Paste Deployment
+<https://docs.pylonsproject.org/projects/pastedeploy/en/latest/>`_
+documentation.)
 
 What we are doing here is using Paste's composite application setup
 stuff to mount things under different URLs.  In this case, we are
 mounting the main app under /, and then are setting up separate serve
-points for the separate sections of the site.  We then use a wrapper
-for serving static content via the `static package
-<http://lukearno.com/projects/static/>`_.
+points for the separate sections of the site.
 
 
 I18N
