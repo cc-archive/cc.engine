@@ -17,6 +17,12 @@ related scripts. The scripts can be used for generating static versions of
 the license deeds.
 
 
+WARNING
+=======
+
+Much of the documentation associated with this project is incorrect!
+
+
 Installation
 ============
 
@@ -81,9 +87,33 @@ the configuration on the command line ::
 Note that this builds in production mode.
 
 
+Dependencies
+============
+
+
+Debian
+------
+
+* ``python-cssselect``
+  * `GitHub - scrapy/cssselect: CSS Selectors for Python
+    <https://github.com/scrapy/cssselect>`_
+* ``python-flup`` (includes required patches, not available upstream)
+  * `flup: random Python WSGI stuff <https://www.saddi.com/software/flup/>`_
+* ``python-librdf``
+  * `Redland RDF Libraries <http://librdf.org/>`_
+
+
+Python
+------
+
+* `Paste Deployment — Paste Deploy 2.1.0 documentation
+  <https://docs.pylonsproject.org/projects/pastedeploy/en/latest/>`_
+
+
 Additional Documentation
 ========================
 
 * `docs/source/tech_overview.rst <docs/source/tech_overview.rst>`_
-* `docs/source/overarching_infrastructure.rst <docs/source/overarching_infrastructure.rst>`_
+* `docs/source/overarching_infrastructure.rst
+  <docs/source/overarching_infrastructure.rst>`_
 * `docs/source/history.rst <docs/source/history.rst>`_
