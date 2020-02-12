@@ -95,11 +95,16 @@ Debian
 ------
 
 * ``python-cssselect``
+
   * `GitHub - scrapy/cssselect: CSS Selectors for Python
     <https://github.com/scrapy/cssselect>`_
+
 * ``python-flup`` (includes required patches, not available upstream)
+
   * `flup: random Python WSGI stuff <https://www.saddi.com/software/flup/>`_
+
 * ``python-librdf``
+
   * `Redland RDF Libraries <http://librdf.org/>`_
 
 
