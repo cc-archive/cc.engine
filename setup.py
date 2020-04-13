@@ -22,8 +22,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="cc.engine",
-    version="10.2.1",
+    name='cc.engine',
+    version='10.2.1',
     namespace_packages=['cc', ],
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     zip_safe=False,
@@ -36,10 +36,10 @@ setup(
         'cc.i18n',
         'cc.license',
         'cc.licenserdf',
-        'flup==1.0.2',
+        'flup',
         'jinja2',
         'poster',   # for validation tests
-        'rdflib<3.0',
+        'rdflib',
         'routes',
         'setuptools',
         'simplejson',
