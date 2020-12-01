@@ -1,63 +1,69 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cc="http://creativecommons.org/ns#"
-  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/"
-  xmlns:frbr="http://purl.org/vocab/frbr/core#" xml:lang="{{ target_lang }}">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://creativecommons.org/ns#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      xmlns:dct="http://purl.org/dc/terms/"
+      xmlns:frbr="http://purl.org/vocab/frbr/core#"
+      xml:lang="{{ target_lang }}">
+  <head about="{{ license.uri }}">
+    <meta http-equiv="Content-Type" 
+	  content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      {%- block title -%}
+        Creative Commons &mdash; {{ license.title(target_lang) }}
+      {%- endblock -%}
+    </title>
 
-<head about="{{ license.uri }}">
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-  <title>
-    {%- block title -%}
-    Creative Commons &mdash; {{ license.title(target_lang) }}
-    {%- endblock -%}
-  </title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    {% include "includes/css.html" %}
+    <link id="deed-css"
+          media="screen" rel="stylesheet" type="text/css"
+          href="{{ request.staticdirect('includes/deed4.css') }}"/>
+    <link id="deed-print-css"
+          media="print" rel="stylesheet" type="text/css"
+          href="{{ request.staticdirect('includes/deed4-print.css') }}"/>
+    <link id="jurisdictions-css"
+          media="screen" rel="stylesheet" type="text/css"
+          href="{{ request.staticdirect('includes/jurisdictions.css')}}"/>
 
-  {% include "includes/css.html" %}
-  <link id="deed-css" media="screen" rel="stylesheet" type="text/css"
-    href="{{ request.staticdirect('includes/deed4.css') }}" />
-  <link id="deed-print-css" media="print" rel="stylesheet" type="text/css"
-    href="{{ request.staticdirect('includes/deed4-print.css') }}" />
-  <link id="jurisdictions-css" media="screen" rel="stylesheet" type="text/css"
-    href="{{ request.staticdirect('includes/jurisdictions.css')}}" />
+    <link rel="alternate" type="application/rdf+xml" href="rdf" />
 
-  <link rel="alternate" type="application/rdf+xml" href="rdf" />
+    {% include "includes/language_javascript.html" %}
 
-  {% include "includes/language_javascript.html" %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ request.staticdirect('includes/help.js') }}"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
-    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
-  <script src="{{ request.staticdirect('includes/help.js') }}"></script>
+    {% block headers %}{% endblock %}
+    <!-- Google Tag Optimize -->
+    <script src="https://www.googleoptimize.com/optimize.js?id=OPT-K7PLVT5"></script> 
+    <!-- End Google Optimize -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-5F5HKGX');</script>
+    <!-- End Google Tag Manager -->
+  </head>
 
-  {% block headers %}{% endblock %}
-</head>
+  {#- Translators: Change hide-banner to an empty string to show the complete site header and footer #}
+  <body typeof="cc:License"
+        about="{{ license.uri }}"
+        class="license {{ get_ltr_rtl }} {% if target_lang != 'en' %}{% trans %}hide-banner{% endtrans %}{% endif %}">
+    {% block page_top %}{% endblock %}
+    <div id="page" class="site">
+      <div class="site-inner">
+        <a class="skip-link screen-reader-text" href="#content">{% trans %}Skip to content{% endtrans %}</a>
 
-{# Translators: Change hide-banner to an empty string to show the complete site header and footer #}
-
-<body typeof="cc:License" about="{{ license.uri }}"
-  class="license {{ get_ltr_rtl }} {% if target_lang != 'en' %}{% trans %}hide-banner{% endtrans %}{% endif %}">
-  {% block page_top %}{% endblock %}
-  <div id="page" class="site">
-    <div class="site-inner">
-      <a class="skip-link screen-reader-text" href="#content">{% trans %}Skip to content{% endtrans %}</a>
-
-      {% include "includes/cc_site_header.html" %}
-      <div id="content" class="site-content">
-        <aside id="header-below" class="widget-area">
-          <section id="text-15" class="widget-1 widget-first widget-last widget-odd widget widget_text">
-            <div class="textwidget">
-              <div id="donation-bar-wrapper" class="donation-bar-wrapper">
-                <div id="donation-bar-inner" class="donation-bar-inner">
-                  <p class="donate-text">{% trans %}Help us build a vibrant, collaborative global commons{% endtrans %}
-                  </p>
-                  <div class="donate-action"><a href="https://creativecommons.org/donate?c_src=website&c_src2=Deed-Top"
-                      class="button donate arrow">{% trans %}Donate{% endtrans %}<span class="hide-on-mobile"> {% trans
-                        %}Now{% endtrans %}</span></a></div>
+        {% include "includes/cc_site_header.html" %}
+        <div id="content" class="site-content">
+          <aside id="header-below" class="widget-area">
+            <section id="text-15" class="widget-1 widget-first widget-last widget-odd widget widget_text">
+              <div class="textwidget">
+                <div id="donation-bar-wrapper" class="donation-bar-wrapper">
+                  <div id="donation-bar-inner" class="donation-bar-inner">
+                    <p class="donate-text">{% trans %}Help us build a vibrant, collaborative global commons{% endtrans %}</p>
+                    <div class="donate-action"><a href="https://creativecommons.org/donate?c_src=website&c_src2=Deed-Top" class="button donate arrow">{% trans %}Donate{% endtrans %}<span class="hide-on-mobile"> {% trans %}Now{% endtrans %}</span></a></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,22 +228,6 @@
     })();
 //]]>
   </script>
-  <!-- Google Tag Manager -->
-  <script type="text/javascript">
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-KP4CRCM');
-  </script>
-  <!-- End Google Tag Manager -->
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP4CRCM" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
   <script type="text/javascript">
     //<![CDATA[
@@ -268,6 +258,8 @@
   </script>
 
   <script type="text/javascript" src="/includes/language-selector.js"></script>
-</body>
-
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5F5HKGX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  </body>
 </html>
