@@ -15,33 +15,33 @@
               <div class="ginput_container ginput_container_radio">
                 <ul class="gfield_radio" id="input_10_1">
                   <li class="gchoice_10_1_0">
-                    <input name="transaction.donationAmt" type="radio" value="5" id="choice_10_1_0" tabindex="1">
+                    <input name="amount" type="radio" value="5" id="choice_10_1_0" tabindex="1">
                     <label for="choice_10_1_0" id="label_10_1_0">$5</label>
                   </li>
                   <li class="gchoice_10_1_1">
-                    <input name="transaction.donationAmt" type="radio" value="15" checked="checked" id="choice_10_1_1"
+                    <input name="amount" type="radio" value="15" checked="checked" id="choice_10_1_1"
                       tabindex="2">
                     <label for="choice_10_1_1" id="label_10_1_1">$15</label>
                   </li>
                   <li class="gchoice_10_1_2">
-                    <input name="transaction.donationAmt" type="radio" value="25" id="choice_10_1_2" tabindex="3">
+                    <input name="amount" type="radio" value="25" id="choice_10_1_2" tabindex="3">
                     <label for="choice_10_1_2" id="label_10_1_2">$25</label>
                   </li>
                   <li class="gchoice_10_1_3">
-                    <input name="transaction.donationAmt" type="radio" value="50" id="choice_10_1_3" tabindex="4">
+                    <input name="amount" type="radio" value="50" id="choice_10_1_3" tabindex="4">
                     <label for="choice_10_1_3" id="label_10_1_3">$50</label>
                   </li>
                   <li class="gchoice_10_1_4">
-                    <input name="transaction.donationAmt" type="radio" value="gf_other_choice" id="choice_10_1_4"
+                    <input name="amount" type="radio" value="gf_other_choice" id="choice_10_1_4"
                       tabindex="5" onfocus="$(this).next('input').focus();">
-                    <input name="transaction.donationAmt.other" type="text" id="input_10_1_other" tabindex="5"
+                    <input name="amount" type="text" id="input_10_1_other" tabindex="5"
                       style="max-width: 80%" placeholder="{% trans %}Amount{% endtrans %}"
                       aria-label="{% trans %}Amount{% endtrans %}">
                   </li>
                 </ul>
 
-                <input type="hidden" name="type" value="One Time">
-                <input type="hidden" name="ea.tracking.id" value="deed-overlay">
+                <input type="hidden" name="c_src" value="website">
+                <input type="hidden" name="c_src2" value="deed-overlay">
 
                 <input type="submit" id="gform_submit_button_10" class="gform_button button"
                   value="{% trans %}Donate Now{% endtrans %}" tabindex="6">
