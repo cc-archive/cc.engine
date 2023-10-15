@@ -4,10 +4,11 @@ cc.engine
 
 ----
 
-**As of 2023-09-27, this project was been deprectaed by the new CC Legal Tools
-(`c-legal-tools-app <https://github.com/creativecommons/cc-legal-tools-app>`_,
-`c-legal-tools-data
-<https://github.com/creativecommons/cc-legal-tools-data>`_).**
+**As of 2023-09-27, this project was been deprectaed by the new CC Legal
+Tools** (cc-legal-tools-app_, cc-legal-tools-data_).
+
+.. cc-legal-tools-app_ https://github.com/creativecommons/cc-legal-tools-app
+.. cc-legal-tools-data_ https://github.com/creativecommons/cc-legal-tools-data
 
 ----
 
