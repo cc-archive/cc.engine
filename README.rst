@@ -2,6 +2,17 @@
 cc.engine
 =========
 
+----
+
+🛑 **As of 2023-09-27, this project was deprecated by the new CC Legal Tools**
+(cc-legal-tools-app_, cc-legal-tools-data_).
+
+.. _cc-legal-tools-app: https://github.com/creativecommons/cc-legal-tools-app
+.. _cc-legal-tools-data: https://github.com/creativecommons/cc-legal-tools-data
+
+----
+
+
 :Date: $LastChangedDate: 2006-11-21 11:23:54 -0500 (Tue, 21 Nov 2006) $
 :Version: $LastChangedRevision: 4737 $
 :Author: Nathan R. Yergler <nathan@creativecommons.org>
@@ -20,7 +31,7 @@ the license deeds.
 WARNING
 =======
 
-Much of the documentation associated with this project is incorrect!
+Much of the documentation associated with this project is no longer accurate!
 
 
 Installation
