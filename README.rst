@@ -29,6 +29,34 @@ related scripts. The scripts can be used for generating static versions of
 the license deeds.
 
 
+ccEngine
+========
+
+The ccEngine is comprised of the following repositories:
+
+* cc.api_: *Legacy API to integrate the Creative Commons licensing engine into
+  third party applications*
+* cc.engine_ (this repository): *Python app that runs part of the license
+  engine on CC's website*
+* cc.i18n_: *Localization data for CC's deeds and license chooser*
+* cc.license_: *Python app that runs part of the license engine on CC's
+  website*
+* cc.licenserdf_: *RDF describing Creative Commons licenses*
+* rdfadict_: *An RDFa parser wth a simple dictionary-like interface.*
+
+ccEngine is primarlily a Python project with 106 Python files (87.6%) across its repositories. The Python files contain:
+
+* 7,315 lines of code (51.4%)
+* 2,481 lines of comments (17.4%)
+
+.. _cc.api:  https://github.com/cc-archive/cc.api
+.. _cc.engine: https://github.com/cc-archive/cc.engine
+.. _cc.i18n: https://github.com/cc-archive/cc.i18n
+.. _cc.license: https://github.com/cc-archive/cc.license
+.. _cc.licenserdf: https://github.com/cc-archive/cc.licenserdf
+.. _rdfadict: https://github.com/cc-archive/rdfadict
+
+
 WARNING
 =======
 
